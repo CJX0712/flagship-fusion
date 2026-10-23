@@ -1,0 +1,51 @@
+name: flagship-fusion CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  governance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # 治理层的被测对象是晨星舰队的两个旗舰仓（公开仓库，零依赖单文件 JS）。
+      # 拉取到 vendor/（发布态落点），CI 即与本地 .cache/fleet 开发态同权。
+      - name: 获取被测旗舰源码（axiom-ai / flagship-ai）
+        run: |
+          mkdir -p vendor
+          for r in axiom-ai flagship-ai; do
+            curl -sL "https://codeload.github.com/CJX0712/$r/tar.gz/refs/heads/main" \
+              | tar xz -C vendor --strip-components=1 --one-top-level=$r 2>/dev/null \
+              || curl -sL "https://codeload.github.com/CJX0712/$r/tar.gz/refs/heads/master" \
+                 | tar xz -C vendor --strip-components=1 --one-top-level=$r
+          done
+          ls vendor/axiom-ai/src/core.js vendor/flagship-ai/src/index.js
+
+      # 治理层自身零依赖：无需 npm install
+      - name: 跨仓差分对拍（13 项语义契约 · 硬门禁）
+        run: node src/differential.js
+
+      - name: AXIOM ↔ L10 ISA 交叉索引
+        run: node src/isa-crosswalk.js
+
+      - name: 变体缺口诚实审计（213 条）
+        run: node src/variant-closer.js
+
+      # 舰队验证依赖 210 仓快照，CI 中不可得 → 仅在本地运行
+      - name: 构建单文件仪表盘（无舰队验证数据时优雅降级）
+        run: node tools/build-dashboard.js
+
+      - name: 上传仪表盘产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: dashboard
+          path: dashboard.html

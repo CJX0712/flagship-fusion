@@ -1,0 +1,30 @@
+{
+  "name": "flagship-fusion",
+  "version": "1.0.0",
+  "description": "301 仓旗舰舰队的治理层：跨仓差分对拍 + ISA 交叉索引 + 变体缺口诚实审计 + 舰队统一验证。零依赖，不重写任何算法。",
+  "main": "src/differential.js",
+  "scripts": {
+    "test": "node src/differential.js && node src/isa-crosswalk.js && node src/variant-closer.js",
+    "test:diff": "node src/differential.js",
+    "test:isa": "node src/isa-crosswalk.js",
+    "test:variant": "node src/variant-closer.js",
+    "verify:fleet": "node src/fleet-verify.js",
+    "build:dashboard": "node tools/build-dashboard.js"
+  },
+  "keywords": [
+    "ai",
+    "fleet-governance",
+    "differential-testing",
+    "cross-validation",
+    "isa",
+    "micro-instructions",
+    "invariants",
+    "zero-dependency",
+    "self-verifying"
+  ],
+  "author": "晨星 (CJX0712)",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}

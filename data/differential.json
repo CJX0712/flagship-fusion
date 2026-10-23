@@ -1,0 +1,1089 @@
+{
+ "total": 13,
+ "passed": 7,
+ "degraded": 1,
+ "solo": 5,
+ "failed": 0,
+ "byVerdict": {
+  "GREEN": 7,
+  "DEGRADED": 1,
+  "SOLO": 5,
+  "RED": 0
+ },
+ "hardPass": true,
+ "results": [
+  {
+   "name": "matmul",
+   "kind": "matrix",
+   "verdict": "GREEN",
+   "verdictZh": "🟢 全绿",
+   "reason": "5 实现互证，逐位一致，达最优档",
+   "fusionTol": 1e-15,
+   "implCount": 5,
+   "refs": [
+    {
+     "src": "flagship-ai",
+     "locator": "matmul",
+     "dTruth": 0,
+     "rTruth": 0,
+     "tol": 1e-13,
+     "withinContract": true,
+     "atFusionTier": true
+    },
+    {
+     "src": "axiom-ai",
+     "locator": "matMul",
+     "dTruth": 0,
+     "rTruth": 0,
+     "tol": 1e-13,
+     "withinContract": true,
+     "atFusionTier": true
+    },
+    {
+     "src": "ai-forge",
+     "locator": "matmul",
+     "dTruth": 0,
+     "rTruth": 0,
+     "tol": 1e-14,
+     "withinContract": true,
+     "atFusionTier": true
+    },
+    {
+     "src": "ai-forge-core",
+     "locator": "matmul",
+     "dTruth": 0,
+     "rTruth": 0,
+     "tol": 1e-13,
+     "withinContract": true,
+     "atFusionTier": true
+    },
+    {
+     "src": "flagship-ai-engine",
+     "locator": "matmul",
+     "dTruth": 0,
+     "rTruth": 0,
+     "tol": 1e-13,
+     "withinContract": true,
+     "atFusionTier": true
+    }
+   ],
+   "errors": [],
+   "pairwise": [
+    {
+     "a": "flagship-ai",
+     "b": "axiom-ai",
+     "d": 0,
+     "r": 0,
+     "tol": 1e-13,
+     "ok": true
+    },
+    {
+     "a": "flagship-ai",
+     "b": "ai-forge",
+     "d": 0,
+     "r": 0,
+     "tol": 1e-13,
+     "ok": true
+    },
+    {
+     "a": "flagship-ai",
+     "b": "ai-forge-core",
+     "d": 0,
+     "r": 0,
+     "tol": 1e-13,
+     "ok": true
+    },
+    {
+     "a": "flagship-ai",
+     "b": "flagship-ai-engine",
+     "d": 0,
+     "r": 0,
+     "tol": 1e-13,
+     "ok": true
+    },
+    {
+     "a": "axiom-ai",
+     "b": "ai-forge",
+     "d": 0,
+     "r": 0,
+     "tol": 1e-13,
+     "ok": true
+    },
+    {
+     "a": "axiom-ai",
+     "b": "ai-forge-core",
+     "d": 0,
+     "r": 0,
+     "tol": 1e-13,
+     "ok": true
+    },
+    {
+     "a": "axiom-ai",
+     "b": "flagship-ai-engine",
+     "d": 0,
+     "r": 0,
+     "tol": 1e-13,
+     "ok": true
+    },
+    {
+     "a": "ai-forge",
+     "b": "ai-forge-core",
+     "d": 0,
+     "r": 0,
+     "tol": 1e-13,
+     "ok": true
+    },
+    {
+     "a": "ai-forge",
+     "b": "flagship-ai-engine",
+     "d": 0,
+     "r": 0,
+     "tol": 1e-13,
+     "ok": true
+    },
+    {
+     "a": "ai-forge-core",
+     "b": "flagship-ai-engine",
+     "d": 0,
+     "r": 0,
+     "tol": 1e-13,
+     "ok": true
+    }
+   ],
+   "truth": [
+    [
+     4,
+     5
+    ],
+    [
+     10,
+     11
+    ]
+   ],
+   "gates": {
+    "G1_multi_impl": true,
+    "G2_pairwise": true,
+    "G3_contract": true,
+    "G4_rel": true
+   },
+   "recommended": "flagship-ai",
+   "precisionRanking": [
+    {
+     "src": "flagship-ai",
+     "dTruth": 0
+    },
+    {
+     "src": "axiom-ai",
+     "dTruth": 0
+    },
+    {
+     "src": "ai-forge",
+     "dTruth": 0
+    },
+    {
+     "src": "ai-forge-core",
+     "dTruth": 0
+    },
+    {
+     "src": "flagship-ai-engine",
+     "dTruth": 0
+    }
+   ]
+  },
+  {
+   "name": "softmax",
+   "kind": "vector",
+   "verdict": "GREEN",
+   "verdictZh": "🟢 全绿",
+   "reason": "5 实现互证，逐位一致，达最优档",
+   "fusionTol": 1e-15,
+   "implCount": 5,
+   "refs": [
+    {
+     "src": "flagship-ai",
+     "locator": "softmaxRows",
+     "dTruth": 0,
+     "rTruth": 0,
+     "tol": 1e-13,
+     "withinContract": true,
+     "atFusionTier": true
+    },
+    {
+     "src": "axiom-ai",
+     "locator": "softmax",
+     "dTruth": 0,
+     "rTruth": 0,
+     "tol": 1e-13,
+     "withinContract": true,
+     "atFusionTier": true
+    },
+    {
+     "src": "ai-forge-core",
+     "locator": "softmaxRows",
+     "dTruth": 0,
+     "rTruth": 0,
+     "tol": 1e-13,
+     "withinContract": true,
+     "atFusionTier": true
+    },
+    {
+     "src": "flagship-ai-engine",
+     "locator": "softmax",
+     "dTruth": 0,
+     "rTruth": 0,
+     "tol": 1e-13,
+     "withinContract": true,
+     "atFusionTier": true
+    },
+    {
+     "src": "flagship-algo-forge",
+     "locator": "Act.softmax",
+     "dTruth": 0,
+     "rTruth": 0,
+     "tol": 1e-13,
+     "withinContract": true,
+     "atFusionTier": true
+    }
+   ],
+   "errors": [
+    {
+     "src": "ai-forge",
+     "locator": "softmax",
+     "error": "undefined is not iterable (cannot read property Symbol(Symbol.iterator))"
+    }
+   ],
+   "pairwise": [
+    {
+     "a": "flagship-ai",
+     "b": "axiom-ai",
+     "d": 0,
+     "r": 0,
+     "tol": 1e-13,
+     "ok": true
+    },
+    {
+     "a": "flagship-ai",
+     "b": "ai-forge-core",
+     "d": 0,
+     "r": 0,
+     "tol": 1e-13,
+     "ok": true
+    },
+    {
+     "a": "flagship-ai",
+     "b": "flagship-ai-engine",
+     "d": 0,
+     "r": 0,
+     "tol": 1e-13,
+     "ok": true
+    },
+    {
+     "a": "flagship-ai",
+     "b": "flagship-algo-forge",
+     "d": 0,
+     "r": 0,
+     "tol": 1e-13,
+     "ok": true
+    },
+    {
+     "a": "axiom-ai",
+     "b": "ai-forge-core",
+     "d": 0,
+     "r": 0,
+     "tol": 1e-13,
+     "ok": true
+    },
+    {
+     "a": "axiom-ai",
+     "b": "flagship-ai-engine",
+     "d": 0,
+     "r": 0,
+     "tol": 1e-13,
+     "ok": true
+    },
+    {
+     "a": "axiom-ai",
+     "b": "flagship-algo-forge",
+     "d": 0,
+     "r": 0,
+     "tol": 1e-13,
+     "ok": true
+    },
+    {
+     "a": "ai-forge-core",
+     "b": "flagship-ai-engine",
+     "d": 0,
+     "r": 0,
+     "tol": 1e-13,
+     "ok": true
+    },
+    {
+     "a": "ai-forge-core",
+     "b": "flagship-algo-forge",
+     "d": 0,
+     "r": 0,
+     "tol": 1e-13,
+     "ok": true
+    },
+    {
+     "a": "flagship-ai-engine",
+     "b": "flagship-algo-forge",
+     "d": 0,
+     "r": 0,
+     "tol": 1e-13,
+     "ok": true
+    }
+   ],
+   "truth": [
+    0.09858023524259535,
+    0.02199622367715018,
+    0.5396230215820585,
+    0.12040617122538433,
+    0.21939434827281154
+   ],
+   "gates": {
+    "G1_multi_impl": true,
+    "G2_pairwise": true,
+    "G3_contract": true,
+    "G4_rel": true
+   },
+   "recommended": "flagship-ai",
+   "precisionRanking": [
+    {
+     "src": "flagship-ai",
+     "dTruth": 0
+    },
+    {
+     "src": "axiom-ai",
+     "dTruth": 0
+    },
+    {
+     "src": "ai-forge-core",
+     "dTruth": 0
+    },
+    {
+     "src": "flagship-ai-engine",
+     "dTruth": 0
+    },
+    {
+     "src": "flagship-algo-forge",
+     "dTruth": 0
+    }
+   ]
+  },
+  {
+   "name": "gelu.erf",
+   "kind": "vector",
+   "verdict": "DEGRADED",
+   "verdictZh": "🟠 降级",
+   "reason": "契约内但未达最优档 1e-15；降级：axiom-ai、flagship-ai-engine、flagship-algo-forge；最优：ai-forge(Δ=4.44e-16)",
+   "fusionTol": 1e-15,
+   "implCount": 4,
+   "refs": [
+    {
+     "src": "axiom-ai",
+     "locator": "gelu",
+     "dTruth": 1.333657237978514e-7,
+     "rTruth": 0.000001190534713427505,
+     "tol": 1.5e-7,
+     "withinContract": true,
+     "atFusionTier": false
+    },
+    {
+     "src": "ai-forge",
+     "locator": "gelu",
+     "dTruth": 4.440892098500626e-16,
+     "rTruth": 8.193549308672423e-16,
+     "tol": 1e-14,
+     "withinContract": true,
+     "atFusionTier": true
+    },
+    {
+     "src": "flagship-ai-engine",
+     "locator": "gelu",
+     "dTruth": 1.0952475870684708e-8,
+     "rTruth": 3.2332117785170844e-8,
+     "tol": 1e-7,
+     "withinContract": true,
+     "atFusionTier": false
+    },
+    {
+     "src": "flagship-algo-forge",
+     "locator": "Act.gelu",
+     "dTruth": 1.333657237978514e-7,
+     "rTruth": 0.000001190534713427505,
+     "tol": 1.5e-7,
+     "withinContract": true,
+     "atFusionTier": false
+    }
+   ],
+   "errors": [],
+   "pairwise": [
+    {
+     "a": "axiom-ai",
+     "b": "ai-forge",
+     "d": 1.333657242419406e-7,
+     "r": 0.000001190534713427505,
+     "tol": 1.5e-7,
+     "ok": true
+    },
+    {
+     "a": "axiom-ai",
+     "b": "flagship-ai-engine",
+     "d": 1.3356767558647675e-7,
+     "r": 0.0000012188427228887612,
+     "tol": 1.5e-7,
+     "ok": true
+    },
+    {
+     "a": "axiom-ai",
+     "b": "flagship-algo-forge",
+     "d": 0,
+     "r": 0,
+     "tol": 1.5e-7,
+     "ok": true
+    },
+    {
+     "a": "ai-forge",
+     "b": "flagship-ai-engine",
+     "d": 1.0952475593128952e-8,
+     "r": 3.2332116965815916e-8,
+     "tol": 1e-7,
+     "ok": true
+    },
+    {
+     "a": "ai-forge",
+     "b": "flagship-algo-forge",
+     "d": 1.333657242419406e-7,
+     "r": 0.000001190534713427505,
+     "tol": 1.5e-7,
+     "ok": true
+    },
+    {
+     "a": "flagship-ai-engine",
+     "b": "flagship-algo-forge",
+     "d": 1.3356767558647675e-7,
+     "r": 0.0000012188427228887612,
+     "tol": 1.5e-7,
+     "ok": true
+    }
+   ],
+   "truth": [
+    -0.015524163314440398,
+    -0.1693745565561511,
+    0,
+    0.18537342665668577,
+    0.9507673329589793,
+    2.69063917073179
+   ],
+   "gates": {
+    "G1_multi_impl": true,
+    "G2_pairwise": true,
+    "G3_contract": true,
+    "G4_rel": true
+   },
+   "recommended": "ai-forge",
+   "precisionRanking": [
+    {
+     "src": "ai-forge",
+     "dTruth": 4.440892098500626e-16
+    },
+    {
+     "src": "flagship-ai-engine",
+     "dTruth": 1.0952475870684708e-8
+    },
+    {
+     "src": "axiom-ai",
+     "dTruth": 1.333657237978514e-7
+    },
+    {
+     "src": "flagship-algo-forge",
+     "dTruth": 1.333657237978514e-7
+    }
+   ]
+  },
+  {
+   "name": "gelu.tanh",
+   "kind": "vector",
+   "verdict": "SOLO",
+   "verdictZh": "🟡 孤证",
+   "reason": "仅 1 个独立实现参与；契约内但缺少互证",
+   "fusionTol": 1e-15,
+   "implCount": 1,
+   "refs": [
+    {
+     "src": "flagship-ai",
+     "locator": "geluFwd",
+     "dTruth": 0,
+     "rTruth": 0,
+     "tol": 1e-13,
+     "withinContract": true,
+     "atFusionTier": true
+    }
+   ],
+   "errors": [],
+   "pairwise": [],
+   "truth": [
+    -0.015084266089998577,
+    -0.16942986529488321,
+    0,
+    0.18537092354275922,
+    0.9505810461745109,
+    2.6911124053605326
+   ],
+   "gates": {
+    "G1_multi_impl": false,
+    "G2_pairwise": true,
+    "G3_contract": true,
+    "G4_rel": true
+   },
+   "recommended": "flagship-ai",
+   "precisionRanking": [
+    {
+     "src": "flagship-ai",
+     "dTruth": 0
+    }
+   ]
+  },
+  {
+   "name": "relu",
+   "kind": "vector",
+   "verdict": "GREEN",
+   "verdictZh": "🟢 全绿",
+   "reason": "3 实现互证，逐位一致，达最优档",
+   "fusionTol": 0,
+   "implCount": 3,
+   "refs": [
+    {
+     "src": "axiom-ai",
+     "locator": "relu",
+     "dTruth": 0,
+     "rTruth": 0,
+     "tol": 1e-13,
+     "withinContract": true,
+     "atFusionTier": true
+    },
+    {
+     "src": "ai-forge",
+     "locator": "relu",
+     "dTruth": 0,
+     "rTruth": 0,
+     "tol": 1e-14,
+     "withinContract": true,
+     "atFusionTier": true
+    },
+    {
+     "src": "flagship-ai-engine",
+     "locator": "relu",
+     "dTruth": 0,
+     "rTruth": 0,
+     "tol": 1e-13,
+     "withinContract": true,
+     "atFusionTier": true
+    }
+   ],
+   "errors": [],
+   "pairwise": [
+    {
+     "a": "axiom-ai",
+     "b": "ai-forge",
+     "d": 0,
+     "r": 0,
+     "tol": 1e-13,
+     "ok": true
+    },
+    {
+     "a": "axiom-ai",
+     "b": "flagship-ai-engine",
+     "d": 0,
+     "r": 0,
+     "tol": 1e-13,
+     "ok": true
+    },
+    {
+     "a": "ai-forge",
+     "b": "flagship-ai-engine",
+     "d": 0,
+     "r": 0,
+     "tol": 1e-13,
+     "ok": true
+    }
+   ],
+   "truth": [
+    0,
+    0,
+    0,
+    0.3,
+    1.1,
+    2.7
+   ],
+   "gates": {
+    "G1_multi_impl": true,
+    "G2_pairwise": true,
+    "G3_contract": true,
+    "G4_rel": true
+   },
+   "recommended": "axiom-ai",
+   "precisionRanking": [
+    {
+     "src": "axiom-ai",
+     "dTruth": 0
+    },
+    {
+     "src": "ai-forge",
+     "dTruth": 0
+    },
+    {
+     "src": "flagship-ai-engine",
+     "dTruth": 0
+    }
+   ]
+  },
+  {
+   "name": "layernorm.row",
+   "kind": "matrix",
+   "verdict": "GREEN",
+   "verdictZh": "🟢 全绿",
+   "reason": "2 实现互证，逐位一致，达最优档",
+   "fusionTol": 1e-15,
+   "implCount": 2,
+   "refs": [
+    {
+     "src": "flagship-ai",
+     "locator": "layernormFwd",
+     "dTruth": 0,
+     "rTruth": 0,
+     "tol": 1e-13,
+     "withinContract": true,
+     "atFusionTier": true
+    },
+    {
+     "src": "axiom-ai",
+     "locator": "layerNorm",
+     "dTruth": 0,
+     "rTruth": 0,
+     "tol": 1e-13,
+     "withinContract": true,
+     "atFusionTier": true
+    }
+   ],
+   "errors": [],
+   "pairwise": [
+    {
+     "a": "flagship-ai",
+     "b": "axiom-ai",
+     "d": 0,
+     "r": 0,
+     "tol": 1e-13,
+     "ok": true
+    }
+   ],
+   "truth": [
+    [
+     -1.3416354199689269,
+     -0.447211806656309,
+     0.447211806656309,
+     1.3416354199689269
+    ],
+    [
+     -1.5109639227370397,
+     -0.13736035661245816,
+     0.41208106983737447,
+     1.2362432095121234
+    ]
+   ],
+   "gates": {
+    "G1_multi_impl": true,
+    "G2_pairwise": true,
+    "G3_contract": true,
+    "G4_rel": true
+   },
+   "recommended": "flagship-ai",
+   "precisionRanking": [
+    {
+     "src": "flagship-ai",
+     "dTruth": 0
+    },
+    {
+     "src": "axiom-ai",
+     "dTruth": 0
+    }
+   ]
+  },
+  {
+   "name": "layernorm.flat",
+   "kind": "vector",
+   "verdict": "SOLO",
+   "verdictZh": "🟡 孤证",
+   "reason": "仅 1 个独立实现参与；契约内但缺少互证",
+   "fusionTol": 1e-15,
+   "implCount": 1,
+   "refs": [
+    {
+     "src": "flagship-ai-engine",
+     "locator": "layerNorm",
+     "dTruth": 1.1102230246251565e-16,
+     "rTruth": 8.613025699701705e-17,
+     "tol": 1e-13,
+     "withinContract": true,
+     "atFusionTier": true
+    }
+   ],
+   "errors": [],
+   "pairwise": [],
+   "truth": [
+    -0.35805684943972765,
+    0.2148341096638366,
+    0.7877250687674009,
+    1.3606160278709651,
+    -2.0767297267504206,
+    -0.6445023289915097,
+    -0.07161136988794553,
+    0.7877250687674009
+   ],
+   "gates": {
+    "G1_multi_impl": false,
+    "G2_pairwise": true,
+    "G3_contract": true,
+    "G4_rel": true
+   },
+   "recommended": "flagship-ai-engine",
+   "precisionRanking": [
+    {
+     "src": "flagship-ai-engine",
+     "dTruth": 1.1102230246251565e-16
+    }
+   ]
+  },
+  {
+   "name": "logsumexp",
+   "kind": "vector",
+   "verdict": "GREEN",
+   "verdictZh": "🟢 全绿",
+   "reason": "3 实现互证，逐位一致，达最优档",
+   "fusionTol": 1e-15,
+   "implCount": 3,
+   "refs": [
+    {
+     "src": "axiom-ai",
+     "locator": "logsumexp",
+     "dTruth": 0,
+     "rTruth": 0,
+     "tol": 1e-13,
+     "withinContract": true,
+     "atFusionTier": true
+    },
+    {
+     "src": "ai-forge",
+     "locator": "logsumexp",
+     "dTruth": 0,
+     "rTruth": 0,
+     "tol": 1e-14,
+     "withinContract": true,
+     "atFusionTier": true
+    },
+    {
+     "src": "flagship-ai-engine",
+     "locator": "logsumexp",
+     "dTruth": 0,
+     "rTruth": 0,
+     "tol": 1e-13,
+     "withinContract": true,
+     "atFusionTier": true
+    }
+   ],
+   "errors": [],
+   "pairwise": [
+    {
+     "a": "axiom-ai",
+     "b": "ai-forge",
+     "d": 0,
+     "r": 0,
+     "tol": 1e-13,
+     "ok": true
+    },
+    {
+     "a": "axiom-ai",
+     "b": "flagship-ai-engine",
+     "d": 0,
+     "r": 0,
+     "tol": 1e-13,
+     "ok": true
+    },
+    {
+     "a": "ai-forge",
+     "b": "flagship-ai-engine",
+     "d": 0,
+     "r": 0,
+     "tol": 1e-13,
+     "ok": true
+    }
+   ],
+   "truth": 2.6168844913961746,
+   "gates": {
+    "G1_multi_impl": true,
+    "G2_pairwise": true,
+    "G3_contract": true,
+    "G4_rel": true
+   },
+   "recommended": "axiom-ai",
+   "precisionRanking": [
+    {
+     "src": "axiom-ai",
+     "dTruth": 0
+    },
+    {
+     "src": "ai-forge",
+     "dTruth": 0
+    },
+    {
+     "src": "flagship-ai-engine",
+     "dTruth": 0
+    }
+   ]
+  },
+  {
+   "name": "crossEntropy.bits",
+   "kind": "vector",
+   "verdict": "SOLO",
+   "verdictZh": "🟡 孤证",
+   "reason": "仅 1 个独立实现参与；契约内但缺少互证",
+   "fusionTol": 1e-15,
+   "implCount": 1,
+   "refs": [
+    {
+     "src": "axiom-ai",
+     "locator": "crossEntropy",
+     "dTruth": 0,
+     "rTruth": 0,
+     "tol": 1e-13,
+     "withinContract": true,
+     "atFusionTier": true
+    }
+   ],
+   "errors": [],
+   "pairwise": [],
+   "truth": 1.8049355947431311,
+   "gates": {
+    "G1_multi_impl": false,
+    "G2_pairwise": true,
+    "G3_contract": true,
+    "G4_rel": true
+   },
+   "recommended": "axiom-ai",
+   "precisionRanking": [
+    {
+     "src": "axiom-ai",
+     "dTruth": 0
+    }
+   ]
+  },
+  {
+   "name": "crossEntropy.nat",
+   "kind": "vector",
+   "verdict": "SOLO",
+   "verdictZh": "🟡 孤证",
+   "reason": "仅 1 个独立实现参与；契约内但缺少互证",
+   "fusionTol": 1e-15,
+   "implCount": 1,
+   "refs": [
+    {
+     "src": "flagship-ai-engine",
+     "locator": "crossEntropy",
+     "dTruth": 0,
+     "rTruth": 0,
+     "tol": 1e-13,
+     "withinContract": true,
+     "atFusionTier": true
+    }
+   ],
+   "errors": [],
+   "pairwise": [],
+   "truth": 1.2510860185884893,
+   "gates": {
+    "G1_multi_impl": false,
+    "G2_pairwise": true,
+    "G3_contract": true,
+    "G4_rel": true
+   },
+   "recommended": "flagship-ai-engine",
+   "precisionRanking": [
+    {
+     "src": "flagship-ai-engine",
+     "dTruth": 0
+    }
+   ]
+  },
+  {
+   "name": "adam.step",
+   "kind": "vector",
+   "verdict": "GREEN",
+   "verdictZh": "🟢 全绿",
+   "reason": "2 实现互证，逐位一致，达最优档",
+   "fusionTol": 1e-15,
+   "implCount": 2,
+   "refs": [
+    {
+     "src": "ai-forge-core",
+     "locator": "adam",
+     "dTruth": 0,
+     "rTruth": 0,
+     "tol": 1e-13,
+     "withinContract": true,
+     "atFusionTier": true
+    },
+    {
+     "src": "flagship-ai-engine",
+     "locator": "adamStep",
+     "dTruth": 0,
+     "rTruth": 0,
+     "tol": 1e-13,
+     "withinContract": true,
+     "atFusionTier": true
+    }
+   ],
+   "errors": [],
+   "pairwise": [
+    {
+     "a": "ai-forge-core",
+     "b": "flagship-ai-engine",
+     "d": 0,
+     "r": 0,
+     "tol": 1e-13,
+     "ok": true
+    }
+   ],
+   "truth": [
+    0.9900000009999999,
+    -1.9900000003333334,
+    0.4900000005
+   ],
+   "gates": {
+    "G1_multi_impl": true,
+    "G2_pairwise": true,
+    "G3_contract": true,
+    "G4_rel": true
+   },
+   "recommended": "ai-forge-core",
+   "precisionRanking": [
+    {
+     "src": "ai-forge-core",
+     "dTruth": 0
+    },
+    {
+     "src": "flagship-ai-engine",
+     "dTruth": 0
+    }
+   ]
+  },
+  {
+   "name": "crossEntropy.logits",
+   "kind": "matrix",
+   "verdict": "GREEN",
+   "verdictZh": "🟢 全绿",
+   "reason": "2 实现互证，逐位一致，达最优档",
+   "fusionTol": 1e-14,
+   "implCount": 2,
+   "refs": [
+    {
+     "src": "flagship-ai",
+     "locator": "crossEntropy",
+     "dTruth": 4.440892098500626e-16,
+     "rTruth": 9.174411289664259e-17,
+     "tol": 1e-13,
+     "withinContract": true,
+     "atFusionTier": true
+    },
+    {
+     "src": "ai-forge",
+     "locator": "crossEntropy",
+     "dTruth": 0,
+     "rTruth": 0,
+     "tol": 1e-14,
+     "withinContract": true,
+     "atFusionTier": true
+    }
+   ],
+   "errors": [],
+   "pairwise": [
+    {
+     "a": "flagship-ai",
+     "b": "ai-forge",
+     "d": 4.440892098500626e-16,
+     "r": 9.174411289664259e-17,
+     "tol": 1e-13,
+     "ok": true
+    }
+   ],
+   "truth": [
+    2.420259980878961
+   ],
+   "gates": {
+    "G1_multi_impl": true,
+    "G2_pairwise": true,
+    "G3_contract": true,
+    "G4_rel": true
+   },
+   "recommended": "ai-forge",
+   "precisionRanking": [
+    {
+     "src": "ai-forge",
+     "dTruth": 0
+    },
+    {
+     "src": "flagship-ai",
+     "dTruth": 4.440892098500626e-16
+    }
+   ]
+  },
+  {
+   "name": "rmsnorm.row",
+   "kind": "matrix",
+   "verdict": "SOLO",
+   "verdictZh": "🟡 孤证",
+   "reason": "仅 1 个独立实现参与；契约内但缺少互证",
+   "fusionTol": 1e-15,
+   "implCount": 1,
+   "refs": [
+    {
+     "src": "flagship-ai",
+     "locator": "rmsnormFwd",
+     "dTruth": 0,
+     "rTruth": 0,
+     "tol": 1e-13,
+     "withinContract": true,
+     "atFusionTier": true
+    }
+   ],
+   "errors": [],
+   "pairwise": [],
+   "truth": [
+    [
+     0.3651481282381064,
+     0.7302962564762128,
+     1.0954443847143192,
+     1.4605925129524255
+    ],
+    [
+     -1.0159997050350085,
+     0.2539999262587521,
+     0.7619997787762564,
+     1.5239995575525127
+    ]
+   ],
+   "gates": {
+    "G1_multi_impl": false,
+    "G2_pairwise": true,
+    "G3_contract": true,
+    "G4_rel": true
+   },
+   "recommended": "flagship-ai",
+   "precisionRanking": [
+    {
+     "src": "flagship-ai",
+     "dTruth": 0
+    }
+   ]
+  }
+ ]
+}
