@@ -1,0 +1,16 @@
+{
+ "_doc": [
+  "由 tools/entrypoint-doctor.js --emit 自动生成的【待审覆盖表】。",
+  "⚠️ 这是候选，不是生效配置。确认每条后，手动合并进 data/entrypoint-overrides.json 的 entry 段。",
+  "生成时间：2026-10-23T20:25:05.724Z"
+ ],
+ "entry": {
+  "transformer-forge": {
+   "cmd": "node",
+   "args": [
+    "transformer-forge.js"
+   ],
+   "reason": "垫片 _smoke.js 不可用（FAIL：    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)\r |     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\r |     at node:internal/main/run_main_modul）。替代入口 node transformer-forge.js 实测自检通过。"
+  }
+ }
+}

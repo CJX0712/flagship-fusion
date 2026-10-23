@@ -1,0 +1,108 @@
+{
+ "fleetDir": "C:\\Users\\Administrator\\WorkBuddy\\2026-10-24-01-51-03\\.cache\\fleet",
+ "python": "C:\\Users\\Administrator\\.workbuddy\\binaries\\python\\envs\\default\\Scripts\\python.exe",
+ "pythonProbed": true,
+ "total": 6,
+ "by": {
+  "PASS": 6,
+  "PASS-CORE": 0,
+  "FAIL": 0,
+  "NO-CHECK": 0,
+  "TIMEOUT": 0,
+  "ENV-BLOCKED": 0
+ },
+ "green": 6,
+ "passRate": 1,
+ "checked": 6,
+ "envBlocked": 0,
+ "allPass": true,
+ "results": [
+  {
+   "name": "aether-research",
+   "status": "PASS",
+   "entry": "npm test → vitest run",
+   "pass": null,
+   "total": null,
+   "ms": 24583,
+   "overrideReason": null,
+   "summary": "Tests  48 passed (48)"
+  },
+  {
+   "name": "aetherflow",
+   "status": "PASS",
+   "entry": "npm test → vitest run",
+   "pass": null,
+   "total": null,
+   "ms": 5831,
+   "overrideReason": null,
+   "summary": "Tests  105 passed (105)"
+  },
+  {
+   "name": "flagship-monorepo",
+   "status": "PASS",
+   "entry": "substitute → flagship-algo-forge, flagship-transformer, flagship-rag-engine, flagship-llm-chat",
+   "pass": 32,
+   "total": 32,
+   "ms": 148792,
+   "substituted": true,
+   "reason": "聚合仓子模块为空占位，由 4 个兄弟仓代行验证",
+   "summary": "flagship-algo-forge:PASS flagship-transformer:PASS flagship-rag-engine:PASS flagship-llm-chat:PASS",
+   "children": [
+    {
+     "name": "flagship-algo-forge",
+     "status": "PASS",
+     "pass": 8,
+     "total": 8
+    },
+    {
+     "name": "flagship-transformer",
+     "status": "PASS",
+     "pass": 9,
+     "total": 9
+    },
+    {
+     "name": "flagship-rag-engine",
+     "status": "PASS",
+     "pass": 9,
+     "total": 9
+    },
+    {
+     "name": "flagship-llm-chat",
+     "status": "PASS",
+     "pass": 6,
+     "total": 6
+    }
+   ]
+  },
+  {
+   "name": "kalman-forge",
+   "status": "PASS",
+   "entry": "node _smoke.js",
+   "pass": 204,
+   "total": 204,
+   "ms": 51362,
+   "overrideReason": null,
+   "summary": "PASS 204 / 204   ALL GREEN"
+  },
+  {
+   "name": "spectral-forge",
+   "status": "PASS",
+   "entry": "node _smoke.js",
+   "pass": 33,
+   "total": 33,
+   "ms": 97701,
+   "overrideReason": null,
+   "summary": "PASS 33 / 33"
+  },
+  {
+   "name": "transformer-forge",
+   "status": "PASS",
+   "entry": "node transformer-forge.js",
+   "pass": 8,
+   "total": 8,
+   "ms": 369,
+   "overrideReason": "入口覆盖：仓内 _smoke.js / _probe.js / _uicheck.js 均从 index.html 正则抠 <script id=\"engine\"> 内联引擎，但引擎早已拆为独立的 UMD 文件 transformer-forge.js，index.html 改为 <script src> 引入 —— 三个入口的正则恒返回 null 而崩溃（TypeError: Cannot read properties of null）。而 transformer-forge.js 自带 require.main === module 自检入口，实测 8/8 全绿（含 matmul/FFN/整块三项梯度检验 maxRelErr 1.6e-7 / 7.7e-10 / 1.1e-8）。属打包不一致，重定向到真实入口即可，无需重写任何算法。",
+   "summary": "结果: 8/8 全绿 ✅"
+  }
+ ]
+}

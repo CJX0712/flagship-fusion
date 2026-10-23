@@ -1,0 +1,50 @@
+{
+  "_doc": [
+    "旗舰融合 · 自检入口 curated 覆盖表（Entrypoint Overrides）",
+    "",
+    "为什么需要它：各仓的自检入口是各仓自己写的，探测逻辑只能按惯例猜。",
+    "当惯例失效时，有两种情况必须区分：",
+    "   (a) 仓自身打包不一致 —— 入口指向已不存在的文件（真缺陷，但修复方式仍是重定向而非重写）",
+    "   (b) 仓是聚合仓，其子模块在快照中为空占位（结构属性，需用舰队中的兄弟仓替代）",
+    "两者都不该记成「测试失败」，也不该静默跳过 —— 在此显式登记，附理由，可审计。",
+    "",
+    "字段：",
+    "  entry      : { 仓名: { cmd, args, reason } }   —— 用指定入口替换自动探测结果",
+    "  substitute : { 仓名: { targets[], reason } }    —— 该仓的验证由舰队中的兄弟仓代行",
+    "",
+    "维护原则：每条覆盖都必须有可复现的理由（实测命令 + 输出），不接受「试试看」。"
+  ],
+  "entry": {
+    "transformer-forge": {
+      "cmd": "node",
+      "args": ["transformer-forge.js"],
+      "reason": "仓内 _smoke.js / _probe.js / _uicheck.js 均从 index.html 正则抠 <script id=\"engine\"> 内联引擎，但引擎早已拆为独立的 UMD 文件 transformer-forge.js，index.html 改为 <script src> 引入 —— 三个入口的正则恒返回 null 而崩溃（TypeError: Cannot read properties of null）。而 transformer-forge.js 自带 require.main === module 自检入口，实测 8/8 全绿（含 matmul/FFN/整块三项梯度检验 maxRelErr 1.6e-7 / 7.7e-10 / 1.1e-8）。属打包不一致，重定向到真实入口即可，无需重写任何算法。"
+    },
+    "flagship-algo-forge": {
+      "cmd": "node",
+      "args": ["apex-forge.js"],
+      "reason": "无 package.json 的 UMD 单文件仓，主库 apex-forge.js 自带 require.main === module 自检入口（index.html 以 <script src=\"apex-forge.js\"> 引入）。实测 8/8 全绿，含 matmul 精确命中 / softmax 平移 1e6 零差 / 注意力 Σw=1 因果 / Adam 收敛至 2.4e-14 / Xavier 方差 / 梯度检验 2.5e-10。"
+    },
+    "flagship-transformer": {
+      "cmd": "node",
+      "args": ["apex-transformer.js"],
+      "reason": "UMD 单文件仓，apex-forge.js 是共享依赖库，本仓主库为 apex-transformer.js（自带 require.main === module 自检）。实测 9/9 全绿，含 matmul/rmsNorm/crossEntropy/RoPE 四项梯度检验（maxRelErr 5.0e-13 / 4.4e-12 / 8.4e-10 / 8.3e-12）与因果位置 0 不看未来。"
+    },
+    "flagship-rag-engine": {
+      "cmd": "node",
+      "args": ["apex-engine.js"],
+      "reason": "UMD 单文件仓，apex-forge.js / apex-transformer.js 为共享依赖库，本仓主库为 apex-engine.js（自带 require.main === module 自检）。实测 9/9 全绿，含分词器往返一致 / KV-Cache ≡ 全量重算零偏差 / greedy 解码一致 / top-p 保留质量 / 采样可复现。"
+    },
+    "flagship-llm-chat": {
+      "cmd": "node",
+      "args": ["apex-chat.js"],
+      "reason": "UMD 单文件仓，apex-forge.js / apex-transformer.js / apex-engine.js 为共享依赖库，本仓主库为 apex-chat.js（自带 require.main === module 自检）。实测 6/6 全绿，含 BPE 对话连通 / 停止符截断。"
+    }
+  },
+  "substitute": {
+    "flagship-monorepo": {
+      "targets": ["flagship-algo-forge", "flagship-transformer", "flagship-rag-engine", "flagship-llm-chat"],
+      "reason": "本仓是 git submodule 聚合仓：verify.js 依次 exec 四个子目录下的入口，但 tarball 快照不含 submodule 内容，四个子目录均为空占位（实测 node flagship-algo-forge/apex-forge.js → MODULE_NOT_FOUND）。这四个子仓在舰队中独立存在且各自可验（历史上 verify.new.log 记录 8/8、9/9、9/9、N/N 全绿）。故本仓的验证由四个兄弟仓代行 —— 这是组合既有成果，不是重写。"
+    }
+  }
+}

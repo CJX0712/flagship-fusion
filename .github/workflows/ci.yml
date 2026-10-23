@@ -19,6 +19,7 @@ jobs:
 
       # 治理层的被测对象是晨星舰队的两个旗舰仓（公开仓库，零依赖单文件 JS）。
       # 拉取到 vendor/（发布态落点），CI 即与本地 .cache/fleet 开发态同权。
+      # FUSION_FLEET 指向 vendor/，让 fleet-verify.js 在 CI 中也能真实跑起来。
       - name: 获取被测旗舰源码（axiom-ai / flagship-ai）
         run: |
           mkdir -p vendor
@@ -40,8 +41,16 @@ jobs:
       - name: 变体缺口诚实审计（213 条）
         run: node src/variant-closer.js
 
-      # 舰队验证依赖 210 仓快照，CI 中不可得 → 仅在本地运行
-      - name: 构建单文件仪表盘（无舰队验证数据时优雅降级）
+      # 舰队验证：CI 中只有 vendor/ 下的两个旗舰仓，其余仓如实记 ENV-BLOCKED / NO-CHECK。
+      # 这正是诚实记账设计要的效果——CI 不假装拥有本地 210 仓快照。
+      - name: 舰队统一验证（vendor 子集 · 失败归因分账）
+        run: FUSION_FLEET=vendor node src/fleet-verify.js
+
+      # 入口医生：CI 中同样只覆盖 vendor 子集，用于回归「垫片失效」类问题
+      - name: 自检入口医生（垫片失效诊断）
+        run: FUSION_FLEET=vendor node tools/entrypoint-doctor.js
+
+      - name: 构建单文件仪表盘（无舰队全量数据时优雅降级）
         run: node tools/build-dashboard.js
 
       - name: 上传仪表盘产物

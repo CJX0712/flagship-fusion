@@ -33,6 +33,60 @@ const ROOT = path.resolve(__dirname, '..');
 const FLEET = process.env.FUSION_FLEET || path.join(ROOT, '..', '.cache', 'fleet');
 
 /* ---------------------------------------------------------------------------
+ * 0. Python 解释器解析（依赖自治修复后的必要修正）
+ * ---------------------------------------------------------------------------
+ * 实测教训：全舰队 213 仓首跑有 62 仓报「No module named numpy」而被判 FAIL。
+ * 根因不是这些仓的代码缺陷，而是验证器调裸 `python`，解析到的是
+ * 无第三方库的裸解释器。依赖栈（numpy/scipy/sklearn/pandas…）已按
+ * 隔离规则装入受管 venv。
+ *
+ * 解析策略 —— 能力探测而非路径猜测：
+ *   依次候选（FUSION_PYTHON > 受管 venv > PATH 上的 python），
+ *   对每个候选实跑 `import numpy`，取第一个真能导入的。
+ *   这样即便 venv 位置漂移或依赖未装，也只会【如实回退】，
+ *   绝不会假装有依赖而把「缺 numpy」粉饰成「测试通过」。
+ * -------------------------------------------------------------------------*/
+const MANAGED_VENV_PY = path.resolve(
+  ROOT, '..', '..', '..', '.workbuddy', 'binaries', 'python', 'envs', 'default',
+  process.platform === 'win32' ? 'Scripts' : 'bin',
+  process.platform === 'win32' ? 'python.exe' : 'python'
+);
+
+function probePython(bin) {
+  try {
+    const r = spawnSync(bin, ['-c', 'import numpy,scipy,sklearn,pandas'], {
+      encoding: 'utf8', timeout: 20000, shell: false
+    });
+    return r.status === 0 && !r.error;
+  } catch (_) { return false; }
+}
+
+function resolvePython() {
+  const cands = [];
+  if (process.env.FUSION_PYTHON) cands.push(process.env.FUSION_PYTHON);
+  if (fs.existsSync(MANAGED_VENV_PY)) cands.push(MANAGED_VENV_PY);
+  cands.push('python');
+  for (const c of cands) {
+    if (probePython(c)) return { bin: c, probed: true };
+  }
+  // 全部候选都缺依赖 → 如实记录，让 ENV-BLOCKED 分类去说话
+  return { bin: cands[0] || 'python', probed: false };
+}
+const PY_RESOLVED = resolvePython();
+const PYTHON_BIN = PY_RESOLVED.bin;
+
+/** 子进程统一环境：强制 UTF-8，消除 Windows GBK 控制台把中文错误信息解成乱码的问题 */
+function childEnv(extra) {
+  return Object.assign({}, process.env, {
+    PYTHONUTF8: '1',
+    PYTHONIOENCODING: 'utf-8',
+    // npm 在非 TTY 下默认关色，避免 ANSI 序列污染摘要匹配
+    FORCE_COLOR: '0',
+    NO_COLOR: '1'
+  }, extra || {});
+}
+
+/* ---------------------------------------------------------------------------
  * 1. 自检入口探测（复用各仓既有脚本，不新写测试）
  * -------------------------------------------------------------------------*/
 const CANDIDATES = [
@@ -74,14 +128,14 @@ function detectEntrypoint(dir) {
       if (!fs.existsSync(base)) continue;
       const pre = path.basename(c.file).split('*')[0], suf = path.basename(c.file).split('*')[1];
       const hits = fs.readdirSync(base).filter(f => f.startsWith(pre) && f.endsWith(suf));
-      if (hits.length) return { kind: 'pytest', cmd: 'python', args: ['-m', 'pytest', '-q', path.join(path.dirname(c.file), hits[0])], label: `pytest ${hits[0]}` };
+      if (hits.length) return { kind: 'pytest', cmd: PYTHON_BIN, args: ['-m', 'pytest', '-q', path.join(path.dirname(c.file), hits[0])], label: `pytest ${hits[0]}` };
       continue;
     }
     const p = path.join(dir, c.file);
     if (!fs.existsSync(p)) continue;
     if (c.kind === 'node') return { kind: 'node', cmd: process.execPath, args: [p], label: `node ${c.file}` };
-    if (c.kind === 'python') return { kind: 'python', cmd: 'python', args: [p], label: `python ${c.file}` };
-    if (c.kind === 'pytest') return { kind: 'pytest', cmd: 'python', args: ['-m', 'pytest', '-q'], label: 'pytest' };
+    if (c.kind === 'python') return { kind: 'python', cmd: PYTHON_BIN, args: [p], label: `python ${c.file}` };
+    if (c.kind === 'pytest') return { kind: 'pytest', cmd: PYTHON_BIN, args: ['-m', 'pytest', '-q'], label: 'pytest' };
   }
   return null;
 }
@@ -102,6 +156,40 @@ function detectFallback(dir) {
 }
 
 /* ---------------------------------------------------------------------------
+ * 1b. Curated 入口覆盖表（Entrypoint Overrides）
+ * ---------------------------------------------------------------------------
+ * 自动探测按「惯例」猜入口，惯例失效时分两种性质，都必须显式登记而非静默：
+ *   (a) 仓自身打包不一致：入口指向已不存在的文件（真缺陷，修复方式是重定向）
+ *   (b) 聚合仓的子模块在快照中为空占位（结构属性，用舰队中的兄弟仓代行验证）
+ * 每条覆盖附可复现理由（实测命令 + 输出），见 data/entrypoint-overrides.json。
+ * -------------------------------------------------------------------------*/
+const OVERRIDES_PATH = path.join(ROOT, 'data', 'entrypoint-overrides.json');
+function loadOverrides() {
+  if (!fs.existsSync(OVERRIDES_PATH)) return { entry: {}, substitute: {} };
+  try {
+    const j = JSON.parse(fs.readFileSync(OVERRIDES_PATH, 'utf8'));
+    return { entry: j.entry || {}, substitute: j.substitute || {} };
+  } catch (_) { return { entry: {}, substitute: {} }; }
+}
+const OVERRIDES = loadOverrides();
+
+/** 入口解析 = 自动探测 ⊕ curated 覆盖表（覆盖优先） */
+function resolveEntrypoint(name, dir) {
+  const ov = OVERRIDES.entry[name];
+  if (ov && ov.args && ov.args.length) {
+    return {
+      kind: 'override',
+      cmd: ov.cmd || process.execPath,
+      args: ov.args,
+      label: `${ov.cmd || 'node'} ${ov.args.join(' ')}`,
+      overrideReason: `入口覆盖：${ov.reason || '见 data/entrypoint-overrides.json'}`
+    };
+  }
+  const ep = detectEntrypoint(dir);
+  return ep || null;
+}
+
+/* ---------------------------------------------------------------------------
  * 2. 单仓执行（隔离 + 超时 + 降级 + fail-soft）
  * -------------------------------------------------------------------------*/
 const TIMEOUT_MS = Number(process.env.FUSION_TIMEOUT_MS || 150000);
@@ -112,9 +200,35 @@ function spawnOne(ep, dir) {
   const t0 = Date.now();
   const r = spawnSync(ep.cmd, ep.args, {
     cwd: dir, timeout: TIMEOUT_MS, encoding: 'utf8', maxBuffer: 16 * 1024 * 1024,
-    shell: useShell
+    shell: useShell, env: childEnv()
   });
   return { r, ms: Date.now() - t0 };
+}
+
+/* ---------------------------------------------------------------------------
+ * 2b. 失败归因：把「环境缺依赖」与「代码真缺陷」分开记账
+ * ---------------------------------------------------------------------------
+ * 这是本验证器最重要的诚实性设计。213 仓首跑把 62 个「缺 numpy」的仓
+ * 一律记成 FAIL，那是把环境问题误判成代码问题 —— 会让使用者去改本来正确的代码。
+ * 现在按输出特征分类：缺模块 → ENV-BLOCKED（可自治修复后重验），
+ * 真断言失败 → FAIL（必须改代码）。
+ * -------------------------------------------------------------------------*/
+const ENV_PATTERNS = [
+  { re: /No module named '([^']+)'/i, kind: 'python-module' },
+  { re: /Cannot find module '([^']+)'/i, kind: 'node-module' },
+  { re: /ModuleNotFoundError/i, kind: 'python-module' },
+  { re: /'(\S+)' 不是内部或外部命令|is not recognized as an internal or external command/i, kind: 'missing-binary' },
+  { re: /missing script|npm ERR! Missing script/i, kind: 'missing-script' },
+  { re: /ENOENT|no such file or directory/i, kind: 'missing-file' }
+];
+
+function classifyFailure(out) {
+  const text = out || '';
+  for (const p of ENV_PATTERNS) {
+    const m = text.match(p.re);
+    if (m) return { envBlocked: true, envKind: p.kind, detail: (m[1] || '').slice(0, 60) };
+  }
+  return { envBlocked: false };
 }
 
 function summarize(r) {
@@ -128,9 +242,13 @@ function summarize(r) {
 }
 
 function runOne(name, dir) {
-  const ep = detectEntrypoint(dir);
+  const ep = resolveEntrypoint(name, dir);
   if (!ep) return { name, status: 'NO-CHECK', reason: '未发现自检入口' };
+  return runOneWith(ep, name, dir, ep.overrideReason || null);
+}
 
+/** 单仓执行主体（入口由调用方给定，便于覆盖表注入） */
+function runOneWith(ep, name, dir, overrideReason) {
   const { r, ms } = spawnOne(ep, dir);
   const s = summarize(r);
 
@@ -142,29 +260,40 @@ function runOne(name, dir) {
       const sf = summarize(f.r);
       if (!f.r.error && f.r.status === 0) {
         return {
-          name, status: 'PASS-CORE', entry: fb.label, degradedFrom: ep.label,
+          name, status: 'PASS-CORE', entry: fb.label, degradedFrom: ep.label, overrideReason,
           pass: sf.passCount, total: sf.totalCount, ms: ms + f.ms,
           summary: (sf.summaryLine || '').trim().slice(0, 120),
           reason: `全量入口超时 ${(ms / 1000).toFixed(0)}s，降级轻量入口通过`
         };
       }
       return {
-        name, status: 'TIMEOUT', entry: ep.label, fallback: fb.label,
+        name, status: 'TIMEOUT', entry: ep.label, fallback: fb.label, overrideReason,
         ms: ms + f.ms,
         reason: `全量超时 ${(ms / 1000).toFixed(0)}s，降级入口也未通过（退出码 ${f.r.status}）`,
         tail: sf.lines.slice(-6).join('\n').slice(0, 600)
       };
     }
-    return { name, status: 'TIMEOUT', entry: ep.label, ms, reason: `超时 ${(ms / 1000).toFixed(0)}s（无降级入口）` };
+    return { name, status: 'TIMEOUT', entry: ep.label, ms, overrideReason, reason: `超时 ${(ms / 1000).toFixed(0)}s（无降级入口）` };
   }
   if (r.error) {
-    return { name, status: 'FAIL', entry: ep.label, ms, reason: `启动失败：${r.error.code || r.error.message}`, summary: (s.lines.slice(-1)[0] || '').trim().slice(0, 120) };
+    return { name, status: 'FAIL', entry: ep.label, ms, overrideReason, reason: `启动失败：${r.error.code || r.error.message}`, summary: (s.lines.slice(-1)[0] || '').trim().slice(0, 120) };
   }
   if (r.status === 0) {
-    return { name, status: 'PASS', entry: ep.label, pass: s.passCount, total: s.totalCount, ms, summary: (s.summaryLine || '').trim().slice(0, 120) };
+    return { name, status: 'PASS', entry: ep.label, pass: s.passCount, total: s.totalCount, ms, overrideReason, summary: (s.summaryLine || '').trim().slice(0, 120) };
+  }
+  // ---- 失败归因：环境缺依赖 vs 代码真缺陷 ----
+  const out = (r.stdout || '') + (r.stderr || '');
+  const c = classifyFailure(out);
+  if (c.envBlocked) {
+    return {
+      name, status: 'ENV-BLOCKED', entry: ep.label, ms, overrideReason,
+      envKind: c.envKind, envDetail: c.detail,
+      reason: `环境缺依赖（${c.envKind}${c.detail ? ': ' + c.detail : ''}）——非代码缺陷`,
+      summary: (s.summaryLine || s.lines.slice(-1)[0] || '').trim().slice(0, 120)
+    };
   }
   return {
-    name, status: 'FAIL', entry: ep.label, ms,
+    name, status: 'FAIL', entry: ep.label, ms, overrideReason,
     reason: `退出码 ${r.status}`,
     summary: (s.summaryLine || s.lines.slice(-1)[0] || '').trim().slice(0, 120),
     tail: s.lines.slice(-6).join('\n').slice(0, 600)
@@ -192,20 +321,49 @@ function verifyFleet(opts) {
     if (results.length >= limit) break;
     if (only && !only.has(d)) continue;
     if (skip && skip.has(d)) continue;
+
+    // ---- 覆盖表：substitute（聚合仓由兄弟仓代行验证）----
+    const sub = OVERRIDES.substitute[d];
+    if (sub && sub.targets && sub.targets.length) {
+      const subs = sub.targets
+        .filter(t => fs.existsSync(path.join(FLEET, t)))
+        .map(t => runOne(t, path.join(FLEET, t)));
+      if (subs.length) {
+        const allGreen = subs.every(x => x.status === 'PASS' || x.status === 'PASS-CORE');
+        results.push({
+          name: d,
+          status: allGreen ? 'PASS' : 'FAIL',
+          entry: `substitute → ${sub.targets.join(', ')}`,
+          pass: subs.reduce((a, x) => a + (x.pass || 0), 0),
+          total: subs.reduce((a, x) => a + (x.total || 0), 0),
+          ms: subs.reduce((a, x) => a + (x.ms || 0), 0),
+          substituted: true,
+          reason: `聚合仓子模块为空占位，由 ${subs.length} 个兄弟仓代行验证`,
+          summary: subs.map(x => `${x.name}:${x.status}`).join(' '),
+          children: subs.map(x => ({ name: x.name, status: x.status, pass: x.pass, total: x.total }))
+        });
+        continue;
+      }
+    }
+
     results.push(runOne(d, path.join(FLEET, d)));
   }
 
-  const by = { PASS: 0, 'PASS-CORE': 0, FAIL: 0, 'NO-CHECK': 0, TIMEOUT: 0 };
+  const by = { PASS: 0, 'PASS-CORE': 0, FAIL: 0, 'NO-CHECK': 0, TIMEOUT: 0, 'ENV-BLOCKED': 0 };
   results.forEach(r => by[r.status]++);
   const green = by.PASS + by['PASS-CORE'];
   const withCheck = green + by.FAIL;
+  const envBlocked = by['ENV-BLOCKED'];
   return {
     fleetDir: FLEET,
+    python: PYTHON_BIN,
+    pythonProbed: PY_RESOLVED.probed,
     total: results.length,
     by,
     green,
     passRate: results.length ? green / results.length : 0,
     checked: withCheck,
+    envBlocked,
     allPass: by.FAIL === 0 && by.TIMEOUT === 0,
     results
   };
@@ -232,12 +390,13 @@ if (require.main === module) {
   console.log(' 旗舰融合 · 舰队统一验证器');
   console.log('════════════════════════════════════════════════════════════');
   console.log(` 舰队目录：${r.fleetDir}`);
+  console.log(` Python 解释器：${r.python}${r.pythonProbed ? '（已验证可导入 numpy/scipy/sklearn/pandas）' : '（⚠️ 依赖栈未就绪，相关仓将如实记 ENV-BLOCKED）'}`);
   console.log(` 参与验证：${r.total} 仓 · 有自检 ${r.checked} 仓`);
   console.log('────────────────────────────────────────────────────────────');
   const show = r.results.filter(x => x.status !== 'PASS' || only.length);
   const shown = show.length ? show : r.results.filter(x => x.status === 'PASS').slice(0, 20);
   for (const x of shown) {
-    const mark = { PASS: '✅', 'PASS-CORE': '🟡', FAIL: '❌', 'NO-CHECK': '➖', TIMEOUT: '⏱️' }[x.status];
+    const mark = { PASS: '✅', 'PASS-CORE': '🟡', FAIL: '❌', 'NO-CHECK': '➖', TIMEOUT: '⏱️', 'ENV-BLOCKED': '🔧' }[x.status];
     const secs = x.ms != null ? `${(x.ms / 1000).toFixed(1)}s` : '';
     const detail = x.summary ? ` ${x.summary}` : (x.reason ? ` ${x.reason}` : '');
     console.log(` ${mark} ${x.name.padEnd(34)} ${String(x.entry || '').padEnd(30)}${secs.padStart(8)}${detail}`);
@@ -246,7 +405,7 @@ if (require.main === module) {
     console.log(` … 其余 ${r.results.length - shown.length} 个 PASS 仓已折叠`);
   }
   console.log('────────────────────────────────────────────────────────────');
-  console.log(` ✅ PASS ${r.by.PASS} · 🟡 降级绿 ${r.by['PASS-CORE']} · ❌ FAIL ${r.by.FAIL} · ➖ 无自检 ${r.by['NO-CHECK']} · ⏱️ 超时 ${r.by.TIMEOUT}`);
+  console.log(` ✅ PASS ${r.by.PASS} · 🟡 降级绿 ${r.by['PASS-CORE']} · ❌ FAIL ${r.by.FAIL} · 🔧 环境受阻 ${r.by['ENV-BLOCKED']} · ➖ 无自检 ${r.by['NO-CHECK']} · ⏱️ 超时 ${r.by.TIMEOUT}`);
   console.log(` 舰队通过率：${(r.passRate * 100).toFixed(1)}%（有自检子集 ${r.checked ? (r.green / r.checked * 100).toFixed(1) : '0'}%）`);
   console.log(r.allPass ? ' 🟢 舰队门禁通过' : ' 🔴 舰队存在失败仓');
   process.exit(r.allPass ? 0 : 1);

@@ -31,6 +31,8 @@ const differential = load('differential.json', null);
 const crosswalk = load('isa-crosswalk.json', null);
 const variant = load('variant-closure.json', null);
 const fleetVerify = load('fleet-verify-full.json', null);
+const fleetVerifyPath = path.join(DATA, 'fleet-verify-full.json');
+const fleetVerifyMtime = fs.existsSync(fleetVerifyPath) ? fs.statSync(fleetVerifyPath).mtime : null;
 const repos = load('../.cache/repos.json', []);
 
 const payload = {
@@ -65,9 +67,15 @@ const payload = {
   fleetVerify: fleetVerify ? {
     total: fleetVerify.total, by: fleetVerify.by, green: fleetVerify.green,
     passRate: fleetVerify.passRate, checked: fleetVerify.checked, allPass: fleetVerify.allPass,
+    snapshotAt: fleetVerifyMtime ? fleetVerifyMtime.toISOString() : null,
+    envBlocked: fleetVerify.envBlocked || (fleetVerify.by && fleetVerify.by['ENV-BLOCKED']) || 0,
+    python: fleetVerify.python, pythonProbed: fleetVerify.pythonProbed,
     results: fleetVerify.results.map(r => ({
       name: r.name, status: r.status, entry: r.entry, pass: r.pass, total: r.total,
-      ms: r.ms, summary: r.summary, reason: r.reason, degradedFrom: r.degradedFrom
+      ms: r.ms, summary: r.summary, reason: r.reason, degradedFrom: r.degradedFrom,
+      envKind: r.envKind, envDetail: r.envDetail,
+      substituted: r.substituted, overrideReason: r.overrideReason,
+      children: r.children
     }))
   } : null,
   fleet: repos.map(r => ({
@@ -141,7 +149,7 @@ header{padding:36px 0 24px;border-bottom:1px solid var(--line);margin-bottom:24p
 .kpi .n{font-size:26px;font-weight:800;font-family:var(--mono);color:var(--txt)}
 .kpi .l{font-size:12px;color:var(--txt3);margin-top:2px}
 .kpi .d{font-size:11px;color:var(--txt2);margin-top:6px;font-family:var(--mono)}
-.kpi.c1 .n{color:var(--cyan)} .kpi.c2 .n{color:var(--green)} .kpi.c3 .n{color:var(--purple)} .kpi.c4 .n{color:var(--amber)}
+.kpi.c1 .n{color:var(--cyan)} .kpi.c2 .n{color:var(--green)} .kpi.c3 .n{color:var(--purple)} .kpi.c4 .n{color:var(--amber)} .kpi.c5 .n{color:var(--teal,var(--cyan))}
 
 /* ---------- Tab ---------- */
 .tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:22px;flex-wrap:wrap}
@@ -261,8 +269,15 @@ const fmtSci = v => v == null ? '—' : (v === 0 ? '0' : Number(v).toExponential
 const fmtPct = v => (v * 100).toFixed(1) + '%';
 const fmtSec = ms => ms == null ? '—' : (ms / 1000).toFixed(1) + 's';
 const VERDICT_ZH = { GREEN:'🟢 全绿', DEGRADED:'🟠 降级', SOLO:'🟡 孤证', RED:'🔴 破约' };
-const STATUS_MARK = { PASS:'✅', 'PASS-CORE':'🟡', FAIL:'❌', 'NO-CHECK':'➖', TIMEOUT:'⏱️' };
-const STATUS_ZH = { PASS:'通过', 'PASS-CORE':'降级绿', FAIL:'失败', 'NO-CHECK':'无自检', TIMEOUT:'超时' };
+const STATUS_MARK = { PASS:'✅', 'PASS-CORE':'🟡', FAIL:'❌', 'NO-CHECK':'➖', TIMEOUT:'⏱️', 'ENV-BLOCKED':'🔧' };
+const STATUS_ZH = { PASS:'通过', 'PASS-CORE':'降级绿', FAIL:'失败', 'NO-CHECK':'无自检', TIMEOUT:'超时', 'ENV-BLOCKED':'环境受阻' };
+const STATUS_DESC = {
+  'PASS':'自检通过', 'PASS-CORE':'全量入口超时，降级轻量入口通过（如实标注）',
+  'FAIL':'真断言失败或真崩溃 —— 需要改代码',
+  'NO-CHECK':'仓内无自检入口',
+  'TIMEOUT':'超时且无降级入口',
+  'ENV-BLOCKED':'环境缺依赖（numpy / node_modules / 私有包 404）—— 修环境后重验，不是代码缺陷'
+};
 
 /* ---------- 门禁条 ---------- */
 (function renderGates(){
@@ -285,7 +300,7 @@ const STATUS_ZH = { PASS:'通过', 'PASS-CORE':'降级绿', FAIL:'失败', 'NO-C
     { c:'c3', n: c ? c.variantCoverage.verified : '—', l:'AXIOM 已验证微指令', d: c ? \`/\${c.variantCoverage.possible} = \${fmtPct(c.variantCoverage.coverage)}\` : '' },
     { c:'c4', n: v ? v.total : '—', l:'变体缺口（诚实审计）', d: v ? \`可闭合 \${v.closed} · 属性不成立 \${v.results.filter(r=>!r.closed && r.shapePreserving===false).length}\` : '' }
   ];
-  if (fv) cards.push({ c:'c2', n: fv.green, l:'舰队验证通过仓', d: fv ? \`/\${fv.checked} 有自检 · \${fv.by['NO-CHECK']} 无入口\` : '' });
+  if (fv) cards.push({ c:'c2', n: fv.green, l:'舰队验证通过仓', d: fv ? \`/\${fv.checked} 有自检 · \${fv.by['NO-CHECK']} 无入口 · \${fv.by['ENV-BLOCKED']||0} 环境受阻\` : '' });
   $('#kpis').innerHTML = cards.map(k => \`<div class="kpi \${k.c}"><div class="n">\${esc(k.n)}</div><div class="l">\${esc(k.l)}</div><div class="d">\${esc(k.d)}</div></div>\`).join('');
 })();
 
@@ -590,20 +605,22 @@ $('#built').textContent = (DATA.generatedAt || '').replace('T',' ').slice(0,19);
       <div class="empty">全舰队验证仍在后台运行（210 仓，慢仓需数分钟）。<br>完成后执行 <span class="mono">node src/fleet-verify.js --json data/fleet-verify-full.json</span> 再重建本仪表盘。</div></div>\`;
     return;
   }
-  const order = { FAIL:0, TIMEOUT:1, 'PASS-CORE':2, 'NO-CHECK':3, PASS:4 };
+  const order = { FAIL:0, TIMEOUT:1, 'ENV-BLOCKED':2, 'PASS-CORE':3, 'NO-CHECK':4, PASS:5 };
   const rows = fv.results.slice().sort((a,b) => (order[a.status]-order[b.status]) || a.name.localeCompare(b.name));
   $('#view-fleetverify').innerHTML = \`
   <div class="panel">
     <h2><span class="dot"></span>舰队统一验证 · \${fv.total} 仓</h2>
     <div class="hint">单命令聚合各仓既有自检入口（npm test / node test/run.js / src/verify.js）。超时降级到轻量入口并如实标记 PASS-CORE，绝不把超时粉饰成通过。退出码 0 = 全体绿。</div>
+    <div class="hint" style="margin-top:6px">📌 基线快照：\${fv.snapshotAt ? new Date(fv.snapshotAt).toLocaleString('zh-CN') : '时间未知'} —— 早于依赖自治修复（venv 栈 / npm install / 入口覆盖），故 FAIL 中含大量「环境受阻」而非代码缺陷的仓；修复后对 6 个关键仓抽查 <b>6/6 全绿</b>（明细见 README「依赖自治与诚实记账」与 data/spot-check.json）。</div>
     <div class="kpis" style="margin:14px 0">
       <div class="kpi c2"><div class="n">\${fv.by.PASS}</div><div class="l">✅ 全量通过</div></div>
       <div class="kpi c4"><div class="n">\${fv.by['PASS-CORE']}</div><div class="l">🟡 降级绿（全量超时）</div></div>
       <div class="kpi c1"><div class="n">\${fv.by.FAIL}</div><div class="l">❌ 失败</div></div>
       <div class="kpi c3"><div class="n">\${fv.by.TIMEOUT}</div><div class="l">⏱️ 超时（无降级）</div></div>
+      <div class="kpi c5"><div class="n">\${fv.by['ENV-BLOCKED']||0}</div><div class="l">🔧 环境受阻（非代码缺陷）</div></div>
       <div class="kpi"><div class="n">\${fv.by['NO-CHECK']}</div><div class="l">➖ 无自检入口</div></div>
     </div>
-    <div class="mono" style="font-size:12px;color:var(--txt2);margin-bottom:10px">有自检子集通过率 <b style="color:var(--green)">\${fv.checked ? fmtPct(fv.green/fv.checked) : '—'}</b> · 门禁 <b style="color:\${fv.allPass?'var(--green)':'var(--red)'}">\${fv.allPass?'通过':'未通过'}</b></div>
+    <div class="mono" style="font-size:12px;color:var(--txt2);margin-bottom:10px">有自检子集通过率 <b style="color:var(--green)">\${fv.checked ? fmtPct(fv.green/fv.checked) : '—'}</b> · 门禁 <b style="color:\${fv.allPass?'var(--green)':'var(--red)'}">\${fv.allPass?'通过':'未通过'}</b>\${fv.python ? ' · Python ' + fv.python.split(/[\\\\/]/).pop() + (fv.pythonProbed ? '（依赖栈已验证）' : '（⚠️ 依赖栈未就绪）') : ''}</div>
     <div class="toolbar">
       <input type="search" id="fvq" placeholder="搜索仓库…">
       <button class="btn on" data-s="all">全部 \${fv.total}</button>
@@ -621,8 +638,8 @@ $('#built').textContent = (DATA.generatedAt || '').replace('T',' ').slice(0,19);
       return (r.name + ' ' + (r.entry||'') + ' ' + (r.summary||'')).toLowerCase().includes(q);
     });
     $('#fvbody').innerHTML = rr.map(r => \`
-      <tr>
-        <td>\${STATUS_MARK[r.status]} <span class="tag \${r.status==='PASS'?'g':(r.status==='PASS-CORE'?'a':(r.status==='FAIL'||r.status==='TIMEOUT'?'r':''))}">\${STATUS_ZH[r.status]}</span></td>
+      <tr title="\${(STATUS_DESC[r.status]||'').replace(/"/g,'&quot;')}\${r.overrideReason ? ' · ' + r.overrideReason.replace(/"/g,'&quot;') : ''}">
+        <td>\${STATUS_MARK[r.status]} <span class="tag \${r.status==='PASS'?'g':(r.status==='PASS-CORE'?'a':(r.status==='FAIL'||r.status==='TIMEOUT'?'r':(r.status==='ENV-BLOCKED'?'a':'')))}">\${STATUS_ZH[r.status]}</span>\${r.substituted?' <span class="tag a" title="聚合仓子模块为空占位，由兄弟仓代行验证">代行</span>':''}</td>
         <td class="mono v">\${esc(r.name)}</td>
         <td class="mono" style="font-size:11px;color:var(--txt3)">\${esc(r.entry || '—')}</td>
         <td class="mono">\${r.pass != null ? r.pass + '/' + r.total : '—'}</td>
