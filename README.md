@@ -71,6 +71,32 @@ node tools/fleet-fetch.js         # 从 GitHub 重新收割舰队源码快照（
 | `NO-CHECK` ➖ | 仓内无自检入口 | 补自检（可选） |
 | `TIMEOUT` ⏱️ | 超时且无降级入口 | 调预算或拆慢测试 |
 
+### 2b. 失败归因的第二轮修正 —— 工具自己的错不许记在被测头上
+
+原则：**验证器的误报率，和被测系统的缺陷率一样值得审计。** v1.1 之后逐条复核
+剩余的非绿仓，发现三处「工具自己的问题被记成被测仓失败」：
+
+| 现象 | 误判 | 真相与修正 |
+|---|---|---|
+| `phosphor-py` 记 FAIL（退出码 5） | pytest 跑 `tests/test_all.py` 报「no tests ran」 | 该文件是**脚本式自检**（0 个 `test_*` 函数，docstring 写明 `python tests/test_all.py`）。改为**看文件内容定路由**：有 `def test_`/`import pytest` 才走 pytest，否则直接 `python <file>` → 实测 **27/27 全绿** |
+| `aetheros` 记 FAIL（`vitest` 命令不存在） | 依赖没装 | **前置探测**测试运行器是否真的在 `node_modules/.bin`（不猜报错文案，因 Windows 中英文 locale 报错文案不同），缺失即记 `ENV-BLOCKED/missing-test-runner`，不冒充代码缺陷 |
+| 4 仓报「No module named 'aether'/'aurora'…」 | 缺第三方依赖 | 实际是**仓自己的包没上 `sys.path`**（快照未做 `pip install -e`）。给 Python 入口注入 `PYTHONPATH=<仓根>:<仓根>/src` → 3 仓回收全绿 |
+
+还有一个反向教训：**装上依赖后，原本被掩盖的真缺陷会现形。**
+给 `nexus-ai-platform` 装齐 orjson 后，测试才第一次真正跑起来，随即暴露
+`TestReactAgent::test_scratchpad_grows_across_steps` 断言失败。
+这才是验证器存在的意义——**跑不起来的测试，绿得毫无意义**。
+
+还有两类「看起来像缺依赖、其实不是」的归因陷阱，一并修掉：
+
+| 现象 | 若记成「缺依赖」会怎样 | 真实定性 |
+|---|---|---|
+| `evolver` 缺 `resource` | 读者会去 `pip install resource`（永远装不上） | **`platform-unsupported`**：`resource` 是 POSIX-only 标准库，Windows 无此模块且不可 pip 补齐。单独分类并注明「需在 Linux/macOS 下重验」 |
+| `portforge` 缺 `portforge` | 记为环境问题，真缺陷从此隐身 | **`self-package-missing` → FAIL**：测试 `from portforge.core.config import …`，但用 GitHub API 核对远端**同样不存在** `portforge/` 包目录——是仓自身结构不一致，与环境无关 |
+
+判定规则刻意做窄：仅当「缺失模块根名 == 仓名」且仓内/`src/` 下均无该包时触发，
+避免误伤第三方依赖。这也印证一条原则：**归因表达式写宽了，就等于在账本上撒谎。**
+
 ### 3. Curated 入口覆盖表 `data/entrypoint-overrides.json`
 
 自动探测按惯例猜入口，惯例失效时分两种性质，都显式登记而非静默：

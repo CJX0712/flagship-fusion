@@ -33,6 +33,8 @@ const variant = load('variant-closure.json', null);
 const fleetVerify = load('fleet-verify-full.json', null);
 const fleetVerifyPath = path.join(DATA, 'fleet-verify-full.json');
 const fleetVerifyMtime = fs.existsSync(fleetVerifyPath) ? fs.statSync(fleetVerifyPath).mtime : null;
+// 修复前基线（依赖自治工程启动时的快照），用于「before → after」如实对比
+const fleetBaseline = load('fleet-verify-baseline.json', null);
 const repos = load('../.cache/repos.json', []);
 
 const payload = {
@@ -68,6 +70,11 @@ const payload = {
     total: fleetVerify.total, by: fleetVerify.by, green: fleetVerify.green,
     passRate: fleetVerify.passRate, checked: fleetVerify.checked, allPass: fleetVerify.allPass,
     snapshotAt: fleetVerifyMtime ? fleetVerifyMtime.toISOString() : null,
+    baseline: fleetBaseline ? {
+      pass: fleetBaseline.by.PASS, fail: fleetBaseline.by.FAIL,
+      envBlocked: (fleetBaseline.by['ENV-BLOCKED'] || 0), noCheck: fleetBaseline.by['NO-CHECK'],
+      passRate: fleetBaseline.passRate, checked: fleetBaseline.checked
+    } : null,
     envBlocked: fleetVerify.envBlocked || (fleetVerify.by && fleetVerify.by['ENV-BLOCKED']) || 0,
     python: fleetVerify.python, pythonProbed: fleetVerify.pythonProbed,
     results: fleetVerify.results.map(r => ({
@@ -611,7 +618,7 @@ $('#built').textContent = (DATA.generatedAt || '').replace('T',' ').slice(0,19);
   <div class="panel">
     <h2><span class="dot"></span>舰队统一验证 · \${fv.total} 仓</h2>
     <div class="hint">单命令聚合各仓既有自检入口（npm test / node test/run.js / src/verify.js）。超时降级到轻量入口并如实标记 PASS-CORE，绝不把超时粉饰成通过。退出码 0 = 全体绿。</div>
-    <div class="hint" style="margin-top:6px">📌 基线快照：\${fv.snapshotAt ? new Date(fv.snapshotAt).toLocaleString('zh-CN') : '时间未知'} —— 早于依赖自治修复（venv 栈 / npm install / 入口覆盖），故 FAIL 中含大量「环境受阻」而非代码缺陷的仓；修复后对 6 个关键仓抽查 <b>6/6 全绿</b>（明细见 README「依赖自治与诚实记账」与 data/spot-check.json）。</div>
+    <div class="hint" style="margin-top:6px">📌 快照：\${fv.snapshotAt ? new Date(fv.snapshotAt).toLocaleString('zh-CN') : '时间未知'}。\${fv.baseline ? \`<br>依赖自治修复前基线（\${fv.baseline.pass} PASS / \${fv.baseline.fail} FAIL，见 <span class="mono">data/fleet-verify-baseline.json</span>）→ 当前 <b>\${fv.by.PASS} PASS / \${fv.by.FAIL} FAIL</b>：FAIL 的绝大多数其实是「环境受阻」（缺 numpy / node_modules / 自模块未上 sys.path），零代码改动即回收。\` : ''}</div>
     <div class="kpis" style="margin:14px 0">
       <div class="kpi c2"><div class="n">\${fv.by.PASS}</div><div class="l">✅ 全量通过</div></div>
       <div class="kpi c4"><div class="n">\${fv.by['PASS-CORE']}</div><div class="l">🟡 降级绿（全量超时）</div></div>

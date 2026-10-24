@@ -1,16 +1,20 @@
 {
  "fleetDir": "C:\\Users\\Administrator\\WorkBuddy\\2026-10-24-01-51-03\\.cache\\fleet",
+ "python": "C:\\Users\\Administrator\\.workbuddy\\binaries\\python\\envs\\default\\Scripts\\python.exe",
+ "pythonProbed": true,
  "total": 213,
  "by": {
-  "PASS": 60,
+  "PASS": 172,
   "PASS-CORE": 0,
-  "FAIL": 118,
-  "NO-CHECK": 35,
-  "TIMEOUT": 0
+  "FAIL": 2,
+  "NO-CHECK": 32,
+  "TIMEOUT": 1,
+  "ENV-BLOCKED": 6
  },
- "green": 60,
- "passRate": 0.28169014084507044,
- "checked": 178,
+ "green": 172,
+ "passRate": 0.8075117370892019,
+ "checked": 174,
+ "envBlocked": 6,
  "allPass": false,
  "results": [
   {
@@ -20,39 +24,43 @@
   },
   {
    "name": "FeynmanForge",
-   "status": "FAIL",
-   "entry": "pytest test_sr.py",
-   "ms": 2760,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "core\\interfaces.py:11: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_sr.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_sr.py",
+   "pass": null,
+   "total": null,
+   "ms": 51893,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "MorningStar-RAG",
-   "status": "FAIL",
-   "entry": "pytest test_bm25.py",
-   "ms": 1708,
-   "reason": "退出码 4",
-   "summary": "E   ModuleNotFoundError: No module named 'numpy'",
-   "tail": "ImportError while loading conftest 'C:\\Users\\Administrator\\WorkBuddy\\2026-10-24-01-51-03\\.cache\\fleet\\MorningStar-RAG\\tests\\conftest.py'.\r\ntests\\conftest.py:5: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_bm25.py",
+   "pass": null,
+   "total": null,
+   "ms": 3579,
+   "overrideReason": null,
+   "summary": "3 passed in 0.02s"
   },
   {
    "name": "SketchForge",
-   "status": "FAIL",
-   "entry": "pytest test_adasketch.py",
-   "ms": 2831,
-   "reason": "退出码 2",
-   "summary": "1 error in 0.74s",
-   "tail": "    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_adasketch.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 0.74s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_adasketch.py",
+   "pass": null,
+   "total": null,
+   "ms": 4265,
+   "overrideReason": null,
+   "summary": "4 passed in 3.47s"
   },
   {
    "name": "StarAI",
-   "status": "FAIL",
-   "entry": "pytest test_starai.py",
-   "ms": 2691,
-   "reason": "退出码 2",
-   "summary": "1 error in 0.45s",
-   "tail": "    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_starai.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 0.45s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_starai.py",
+   "pass": null,
+   "total": null,
+   "ms": 74266,
+   "overrideReason": null,
+   "summary": "6 passed in 71.92s (0:01:11)"
   },
   {
    "name": "StarAI-Kernel",
@@ -60,7 +68,8 @@
    "entry": "npm test → node selftest.js",
    "pass": 23,
    "total": 23,
-   "ms": 2124,
+   "ms": 1094,
+   "overrideReason": null,
    "summary": "通过 23/23  🏆 全绿"
   },
   {
@@ -69,71 +78,79 @@
    "entry": "npm test → node test/run.js",
    "pass": 32,
    "total": 32,
-   "ms": 1496,
+   "ms": 710,
+   "overrideReason": null,
    "summary": "自检结果：32/32 通过  ✅ 全绿"
   },
   {
    "name": "SubmodForge",
    "status": "PASS",
-   "entry": "pytest test_cli.py",
+   "entry": "pytest tests\\test_cli.py",
    "pass": null,
    "total": null,
-   "ms": 6649,
+   "ms": 2896,
+   "overrideReason": null,
    "summary": ""
   },
   {
    "name": "activeforge",
-   "status": "FAIL",
-   "entry": "pytest test_al.py",
-   "ms": 2232,
-   "reason": "退出码 2",
-   "summary": "1 error in 0.46s",
-   "tail": "    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_al.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 0.46s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_al.py",
+   "pass": null,
+   "total": null,
+   "ms": 4158,
+   "overrideReason": null,
+   "summary": "6 passed in 2.92s"
   },
   {
    "name": "aether-ai-core-v2",
-   "status": "FAIL",
-   "entry": "pytest test_agent.py",
-   "ms": 2414,
-   "reason": "退出码 4",
-   "summary": "E   ModuleNotFoundError: No module named 'aether'",
-   "tail": "ImportError while loading conftest 'C:\\Users\\Administrator\\WorkBuddy\\2026-10-24-01-51-03\\.cache\\fleet\\aether-ai-core-v2\\tests\\conftest.py'.\r\ntests\\conftest.py:7: in <module>\r\n    from aether.core.config import load_config\r\nE   ModuleNotFoundError: No module named 'aether'\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_agent.py",
+   "pass": null,
+   "total": null,
+   "ms": 1629,
+   "overrideReason": null,
+   "summary": "2 passed in 0.24s"
   },
   {
    "name": "aether-research",
-   "status": "FAIL",
+   "status": "PASS",
    "entry": "npm test → vitest run",
-   "ms": 1174,
-   "reason": "退出码 1",
-   "summary": "���������ļ���",
-   "tail": "> aether-research@0.1.0 test\n> vitest run\n'vitest' �����ڲ����ⲿ���Ҳ���ǿ����еĳ���\r\n���������ļ���\r"
+   "pass": null,
+   "total": null,
+   "ms": 53428,
+   "overrideReason": null,
+   "summary": "Tests  48 passed (48)"
   },
   {
    "name": "aetherflow",
-   "status": "FAIL",
+   "status": "PASS",
    "entry": "npm test → vitest run",
-   "ms": 1230,
-   "reason": "退出码 1",
-   "summary": "���������ļ���",
-   "tail": "> aetherflow@0.1.0 test\n> vitest run\n'vitest' �����ڲ����ⲿ���Ҳ���ǿ����еĳ���\r\n���������ļ���\r"
+   "pass": null,
+   "total": null,
+   "ms": 6350,
+   "overrideReason": null,
+   "summary": "Tests  105 passed (105)"
   },
   {
    "name": "aetheros",
-   "status": "FAIL",
+   "status": "ENV-BLOCKED",
    "entry": "npm test → vitest run",
-   "ms": 1493,
-   "reason": "退出码 1",
-   "summary": "���������ļ���",
-   "tail": "> aetheros@0.1.0 test\n> vitest run\n'vitest' �����ڲ����ⲿ���Ҳ���ǿ����еĳ���\r\n���������ļ���\r"
+   "ms": 0,
+   "overrideReason": null,
+   "envKind": "missing-test-runner",
+   "envDetail": "vitest",
+   "reason": "测试运行器 vitest 未安装（node_modules 缺失或未装成功）——非代码缺陷"
   },
   {
    "name": "ai-core",
    "status": "PASS",
-   "entry": "pytest test_ai_core.py",
+   "entry": "pytest tests\\test_ai_core.py",
    "pass": null,
    "total": null,
-   "ms": 4110,
-   "summary": "11 passed in 1.21s"
+   "ms": 1426,
+   "overrideReason": null,
+   "summary": "11 passed in 0.54s"
   },
   {
    "name": "ai-dev-env-report",
@@ -146,8 +163,9 @@
    "entry": "npm test → node test/run.mjs",
    "pass": null,
    "total": null,
-   "ms": 2378,
-   "summary": "✅ 54 passed   no failures   1.03s"
+   "ms": 1603,
+   "overrideReason": null,
+   "summary": "✅ 54 passed   no failures   0.56s"
   },
   {
    "name": "ai-forge-core",
@@ -155,7 +173,8 @@
    "entry": "npm test → node test/run.js",
    "pass": 12,
    "total": 12,
-   "ms": 1173,
+   "ms": 761,
+   "overrideReason": null,
    "summary": "\u001b[1m结果: 12/12 通过\u001b[0m  \u001b[32m— 全绿 ✅\u001b[0m"
   },
   {
@@ -170,39 +189,44 @@
   },
   {
    "name": "ai-platform-agent-rag",
-   "status": "FAIL",
-   "entry": "pytest test_agent.py",
-   "ms": 2059,
-   "reason": "退出码 4",
-   "summary": "E   ModuleNotFoundError: No module named 'pydantic_settings'",
-   "tail": "tests\\conftest.py:16: in <module>\r\n    from ai_platform.config import get_settings  # noqa: E402\r\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\nai_platform\\config.py:10: in <module>\r\n    from pydantic_settings import BaseSettings, SettingsConfigDict\r\nE   ModuleNotFoundError: No module named 'pydantic_settings'\r"
+   "status": "ENV-BLOCKED",
+   "entry": "pytest tests\\test_agent.py",
+   "ms": 1432,
+   "overrideReason": null,
+   "envKind": "python-module",
+   "envDetail": "langgraph",
+   "reason": "环境缺依赖（python-module: langgraph）——非代码缺陷",
+   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!"
   },
   {
    "name": "aiaforge",
-   "status": "FAIL",
-   "entry": "pytest test_attacks.py",
-   "ms": 2708,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "tests\\test_attacks.py:6: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_attacks.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_attacks.py",
+   "pass": null,
+   "total": null,
+   "ms": 26583,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "alignforge",
-   "status": "FAIL",
-   "entry": "pytest test_alignforge.py",
-   "ms": 2471,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "tests\\test_alignforge.py:14: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_alignforge.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_alignforge.py",
+   "pass": null,
+   "total": null,
+   "ms": 12447,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "anomalyforge",
-   "status": "FAIL",
-   "entry": "pytest test_core.py",
-   "ms": 3372,
-   "reason": "退出码 2",
-   "summary": "1 error in 0.59s",
-   "tail": "    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_core.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 0.59s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_core.py",
+   "pass": null,
+   "total": null,
+   "ms": 4065,
+   "overrideReason": null,
+   "summary": "8 passed in 2.66s"
   },
   {
    "name": "apex-flagship",
@@ -215,7 +239,8 @@
    "entry": "node test/run.js",
    "pass": null,
    "total": null,
-   "ms": 304,
+   "ms": 327,
+   "overrideReason": null,
    "summary": "=== RESULT: 25 passed, 0 failed ==="
   },
   {
@@ -225,12 +250,13 @@
   },
   {
    "name": "atlas-ai-stack",
-   "status": "FAIL",
-   "entry": "pytest test_api_cli.py",
-   "ms": 2915,
-   "reason": "退出码 5",
-   "summary": "",
-   "tail": ""
+   "status": "PASS",
+   "entry": "pytest tests\\test_api_cli.py",
+   "pass": null,
+   "total": null,
+   "ms": 3910,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "attn-forge",
@@ -239,21 +265,23 @@
   },
   {
    "name": "aurora-rag",
-   "status": "FAIL",
-   "entry": "pytest test_embeddings.py",
-   "ms": 2399,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "tests\\test_embeddings.py:1: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_embeddings.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_embeddings.py",
+   "pass": null,
+   "total": null,
+   "ms": 931,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "aurora-worldclass-ai",
-   "status": "FAIL",
-   "entry": "pytest test_invariants.py",
-   "ms": 2604,
-   "reason": "退出码 2",
-   "summary": "1 error in 0.71s",
-   "tail": "    import torch\r\nE   ModuleNotFoundError: No module named 'torch'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_invariants.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 0.71s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_invariants.py",
+   "pass": null,
+   "total": null,
+   "ms": 7931,
+   "overrideReason": null,
+   "summary": "17 passed in 6.27s"
   },
   {
    "name": "avl-forge",
@@ -266,26 +294,29 @@
    "entry": "npm test → node test/run.js && node test/ui-smoke.js",
    "pass": null,
    "total": null,
-   "ms": 69799,
+   "ms": 45088,
+   "overrideReason": null,
    "summary": "🟢 UI 冒烟测试全部通过"
   },
   {
    "name": "banditforge",
-   "status": "FAIL",
-   "entry": "pytest test_cli.py",
-   "ms": 3061,
-   "reason": "退出码 2",
-   "summary": "1 error in 0.82s",
-   "tail": "    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_cli.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 0.82s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_cli.py",
+   "pass": null,
+   "total": null,
+   "ms": 1748,
+   "overrideReason": null,
+   "summary": "2 passed in 0.90s"
   },
   {
    "name": "bayesforge",
-   "status": "FAIL",
-   "entry": "pytest test_acquisition.py",
-   "ms": 2508,
-   "reason": "退出码 4",
-   "summary": "E   ModuleNotFoundError: No module named 'numpy'",
-   "tail": "ImportError while loading conftest 'C:\\Users\\Administrator\\WorkBuddy\\2026-10-24-01-51-03\\.cache\\fleet\\bayesforge\\tests\\conftest.py'.\r\ntests\\conftest.py:5: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_acquisition.py",
+   "pass": null,
+   "total": null,
+   "ms": 2478,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "bitcrc",
@@ -293,7 +324,8 @@
    "entry": "node _smoke.js",
    "pass": 14,
    "total": 14,
-   "ms": 271,
+   "ms": 156,
+   "overrideReason": null,
    "summary": "PASS 14 / 14"
   },
   {
@@ -302,17 +334,19 @@
    "entry": "node _smoke.js",
    "pass": null,
    "total": null,
-   "ms": 17472,
+   "ms": 8097,
+   "overrideReason": null,
    "summary": ""
   },
   {
    "name": "causalforge",
-   "status": "FAIL",
-   "entry": "pytest test_cli.py",
-   "ms": 3186,
-   "reason": "退出码 2",
-   "summary": "from .types import CausalDataset, EstimatorResult",
-   "tail": "causalforge\\core\\types.py:5: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_cli.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_cli.py",
+   "pass": null,
+   "total": null,
+   "ms": 7387,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "cellular-lab",
@@ -320,62 +354,69 @@
    "entry": "node _smoke.js",
    "pass": 13,
    "total": 13,
-   "ms": 323,
+   "ms": 166,
+   "overrideReason": null,
    "summary": "PASS 13 / 13"
   },
   {
    "name": "chainforge",
-   "status": "FAIL",
-   "entry": "pytest test_chainforge.py",
-   "ms": 2735,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "tests\\test_chainforge.py:16: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_chainforge.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_chainforge.py",
+   "pass": null,
+   "total": null,
+   "ms": 46405,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "changeforge",
-   "status": "FAIL",
-   "entry": "pytest test_cli.py",
-   "ms": 3533,
-   "reason": "退出码 4",
-   "summary": "E   ModuleNotFoundError: No module named 'numpy'",
-   "tail": "ImportError while loading conftest 'C:\\Users\\Administrator\\WorkBuddy\\2026-10-24-01-51-03\\.cache\\fleet\\changeforge\\tests\\conftest.py'.\r\ntests\\conftest.py:14: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_cli.py",
+   "pass": null,
+   "total": null,
+   "ms": 1270,
+   "overrideReason": null,
+   "summary": "12 passed in 0.16s"
   },
   {
    "name": "chenxing",
-   "status": "FAIL",
-   "entry": "pytest test_agent.py",
-   "ms": 2431,
-   "reason": "退出码 4",
-   "summary": "E   ModuleNotFoundError: No module named 'numpy'",
-   "tail": "ImportError while loading conftest 'C:\\Users\\Administrator\\WorkBuddy\\2026-10-24-01-51-03\\.cache\\fleet\\chenxing\\tests\\conftest.py'.\r\ntests\\conftest.py:2: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_agent.py",
+   "pass": null,
+   "total": null,
+   "ms": 1415,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "chrono-forge",
-   "status": "FAIL",
-   "entry": "pytest test_core.py",
-   "ms": 2535,
-   "reason": "退出码 2",
-   "summary": "1 error in 0.54s",
-   "tail": "    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_core.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 0.54s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_core.py",
+   "pass": null,
+   "total": null,
+   "ms": 1127,
+   "overrideReason": null,
+   "summary": "5 passed in 0.21s"
   },
   {
    "name": "clusterforge",
-   "status": "FAIL",
-   "entry": "pytest test_clustering.py",
-   "ms": 2420,
-   "reason": "退出码 2",
-   "summary": "1 error in 0.61s",
-   "tail": "    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_clustering.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 0.61s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_clustering.py",
+   "pass": null,
+   "total": null,
+   "ms": 5327,
+   "overrideReason": null,
+   "summary": "4 passed in 3.91s"
   },
   {
    "name": "conformalforge",
-   "status": "FAIL",
-   "entry": "pytest test_classifiers.py",
-   "ms": 2737,
-   "reason": "退出码 2",
-   "summary": "1 error in 0.56s",
-   "tail": "    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_classifiers.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 0.56s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_classifiers.py",
+   "pass": null,
+   "total": null,
+   "ms": 11857,
+   "overrideReason": null,
+   "summary": "5 passed, 1 skipped in 10.36s"
   },
   {
    "name": "conv-forge",
@@ -384,75 +425,83 @@
   },
   {
    "name": "convexforge",
-   "status": "FAIL",
-   "entry": "pytest test_cli.py",
-   "ms": 4161,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "convexforge\\pipeline\\benchmark.py:21: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_cli.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_cli.py",
+   "pass": null,
+   "total": null,
+   "ms": 1861,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "ctrlforge",
-   "status": "FAIL",
-   "entry": "pytest test_core.py",
-   "ms": 3850,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "tests\\test_core.py:2: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_core.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_core.py",
+   "pass": null,
+   "total": null,
+   "ms": 4064,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "cvforge",
-   "status": "FAIL",
-   "entry": "pytest test_core.py",
-   "ms": 3305,
-   "reason": "退出码 2",
-   "summary": "1 error in 0.78s",
-   "tail": "    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_core.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 0.78s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_core.py",
+   "pass": null,
+   "total": null,
+   "ms": 1362,
+   "overrideReason": null,
+   "summary": "10 passed in 0.21s"
   },
   {
    "name": "cxrag",
    "status": "PASS",
-   "entry": "pytest test_evaluation.py",
+   "entry": "pytest tests\\test_evaluation.py",
    "pass": null,
    "total": null,
-   "ms": 3445,
-   "summary": "4 passed in 0.30s"
+   "ms": 794,
+   "overrideReason": null,
+   "summary": "4 passed in 0.03s"
   },
   {
    "name": "dagforge",
-   "status": "FAIL",
-   "entry": "pytest test_core.py",
-   "ms": 2732,
-   "reason": "退出码 2",
-   "summary": "1 error in 0.50s",
-   "tail": "    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_core.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 0.50s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_core.py",
+   "pass": null,
+   "total": null,
+   "ms": 1382,
+   "overrideReason": null,
+   "summary": "6 passed in 0.27s"
   },
   {
    "name": "densforge",
-   "status": "FAIL",
-   "entry": "pytest test_architecture.py",
-   "ms": 2275,
-   "reason": "退出码 4",
-   "summary": "E   ModuleNotFoundError: No module named 'numpy'",
-   "tail": "ImportError while loading conftest 'C:\\Users\\Administrator\\WorkBuddy\\2026-10-24-01-51-03\\.cache\\fleet\\densforge\\tests\\conftest.py'.\r\ntests\\conftest.py:8: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_architecture.py",
+   "pass": null,
+   "total": null,
+   "ms": 4727,
+   "overrideReason": null,
+   "summary": "45 passed in 1.01s"
   },
   {
    "name": "dialectica-ai",
-   "status": "FAIL",
-   "entry": "pytest test_api.py",
-   "ms": 4215,
-   "reason": "退出码 5",
-   "summary": "",
-   "tail": ""
+   "status": "PASS",
+   "entry": "pytest tests\\test_api.py",
+   "pass": null,
+   "total": null,
+   "ms": 1649,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "dictforge",
-   "status": "FAIL",
-   "entry": "pytest test_cli.py",
-   "ms": 4416,
-   "reason": "退出码 4",
-   "summary": "E   ModuleNotFoundError: No module named 'numpy'",
-   "tail": "ImportError while loading conftest 'C:\\Users\\Administrator\\WorkBuddy\\2026-10-24-01-51-03\\.cache\\fleet\\dictforge\\tests\\conftest.py'.\r\ntests\\conftest.py:20: in <module>\r\n    import numpy as np  # noqa: E402\r\n    ^^^^^^^^^^^^^^^^^^\r\nE   ModuleNotFoundError: No module named 'numpy'\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_cli.py",
+   "pass": null,
+   "total": null,
+   "ms": 81772,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "diff-scope",
@@ -465,17 +514,19 @@
    "entry": "node _smoke.js",
    "pass": null,
    "total": null,
-   "ms": 4263,
+   "ms": 1945,
+   "overrideReason": null,
    "summary": ""
   },
   {
    "name": "diffusionforge",
-   "status": "FAIL",
-   "entry": "pytest test_core.py",
-   "ms": 2510,
-   "reason": "退出码 2",
-   "summary": "1 error in 0.54s",
-   "tail": "    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_core.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 0.54s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_core.py",
+   "pass": null,
+   "total": null,
+   "ms": 4351,
+   "overrideReason": null,
+   "summary": "7 passed in 2.88s"
   },
   {
    "name": "docs",
@@ -484,48 +535,54 @@
   },
   {
    "name": "domainforge",
-   "status": "FAIL",
-   "entry": "pytest test_alignment.py",
-   "ms": 3035,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "tests\\test_alignment.py:3: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_alignment.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_alignment.py",
+   "pass": null,
+   "total": null,
+   "ms": 6380,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "effattnforge",
-   "status": "FAIL",
-   "entry": "pytest test_attn.py",
-   "ms": 3060,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "tests\\test_attn.py:6: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_attn.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_attn.py",
+   "pass": null,
+   "total": null,
+   "ms": 1011,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "ensembleforge",
-   "status": "FAIL",
-   "entry": "pytest test_average.py",
-   "ms": 3386,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "tests\\test_average.py:3: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_average.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_average.py",
+   "pass": null,
+   "total": null,
+   "ms": 1003,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "equiforge",
-   "status": "FAIL",
-   "entry": "pytest test_cli.py",
-   "ms": 4796,
-   "reason": "退出码 1",
-   "summary": "FAILED tests/test_cli.py::test_cli_run_writes_report - AssertionError: Traceb...",
-   "tail": "E       assert 1 == 0\r\nE        +  where 1 = CompletedProcess(args=['C:\\\\Users\\\\Administrator\\\\.workbuddy\\\\binaries\\\\python\\\\versions\\\\3.13.12\\\\python.exe', '-m', ...data\\\\synthesizer.py\", line 22, in <module>\\n    import numpy as np\\nModuleNotFoundError: No module named \\'numpy\\'\\n').returncode\r\ntests\\test_cli.py:54: AssertionError\r\n=========================== short test summary info ===========================\r\nFAILED tests/test_cli.py::test_cli_methods_lists_all - AssertionError: Traceb...\r\nFAILED tests/test_cli.py::test_cli_run_writes_report - AssertionError: Traceb...\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_cli.py",
+   "pass": null,
+   "total": null,
+   "ms": 4561,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "evolver",
-   "status": "FAIL",
-   "entry": "pytest test_benchmark.py",
-   "ms": 3069,
-   "reason": "退出码 2",
-   "summary": "from evolver.act.sandbox import ExecutionResult, Sandbox, validate_source",
-   "tail": "evolver\\act\\sandbox.py:28: in <module>\r\n    import resource\r\nE   ModuleNotFoundError: No module named 'resource'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_benchmark.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "ENV-BLOCKED",
+   "entry": "pytest tests\\test_benchmark.py",
+   "ms": 914,
+   "overrideReason": null,
+   "envKind": "platform-unsupported",
+   "envDetail": "resource（POSIX-only 标准库，Windows 无此模块且无法 pip 安装）",
+   "reason": "平台不支持（resource（POSIX-only 标准库，Windows 无此模块且无法 pip 安装））——非代码缺陷，需在 Linux/macOS 下重验",
+   "summary": "from evolver.act.sandbox import ExecutionResult, Sandbox, validate_source"
   },
   {
    "name": "examples",
@@ -534,30 +591,33 @@
   },
   {
    "name": "explainforge",
-   "status": "FAIL",
-   "entry": "pytest test_cli.py",
-   "ms": 2665,
-   "reason": "退出码 1",
-   "summary": "2 failed in 0.55s",
-   "tail": "E   ModuleNotFoundError: No module named 'numpy'\r\nexplainforge\\core\\seed.py:11: ModuleNotFoundError\r\n=========================== short test summary info ===========================\r\nFAILED tests/test_cli.py::test_cli_runs_and_writes_json - ModuleNotFoundError...\r\nFAILED tests/test_cli.py::test_cli_logreg_runs - ModuleNotFoundError: No modu...\r\n2 failed in 0.55s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_cli.py",
+   "pass": null,
+   "total": null,
+   "ms": 11104,
+   "overrideReason": null,
+   "summary": "2 passed in 9.90s"
   },
   {
    "name": "fairforge",
-   "status": "FAIL",
-   "entry": "pytest test_backend_config.py",
-   "ms": 3325,
-   "reason": "退出码 2",
-   "summary": "1 error in 0.83s",
-   "tail": "    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_backend_config.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 0.83s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_backend_config.py",
+   "pass": null,
+   "total": null,
+   "ms": 4731,
+   "overrideReason": null,
+   "summary": "12 passed in 3.53s"
   },
   {
    "name": "fedforge",
    "status": "PASS",
-   "entry": "pytest test_config.py",
+   "entry": "pytest tests\\test_config.py",
    "pass": null,
    "total": null,
-   "ms": 2775,
-   "summary": "14 passed in 0.32s"
+   "ms": 965,
+   "overrideReason": null,
+   "summary": "14 passed in 0.05s"
   },
   {
    "name": "flagship-ai",
@@ -565,7 +625,8 @@
    "entry": "npm test → node src/verify.js",
    "pass": 12,
    "total": 12,
-   "ms": 5049,
+   "ms": 4472,
+   "overrideReason": null,
    "summary": "结果：12/12 通过 ✅ 全绿"
   },
   {
@@ -574,50 +635,96 @@
    "entry": "npm test → node test/run.mjs",
    "pass": 62,
    "total": 62,
-   "ms": 9622,
-   "summary": "PASS 62/62 — 全部不变量自检通过 (8510ms)"
+   "ms": 7247,
+   "overrideReason": null,
+   "summary": "PASS 62/62 — 全部不变量自检通过 (5510ms)"
   },
   {
    "name": "flagship-algo-forge",
-   "status": "NO-CHECK",
-   "reason": "未发现自检入口"
+   "status": "PASS",
+   "entry": "node apex-forge.js",
+   "pass": 8,
+   "total": 8,
+   "ms": 107,
+   "overrideReason": "入口覆盖：无 package.json 的 UMD 单文件仓，主库 apex-forge.js 自带 require.main === module 自检入口（index.html 以 <script src=\"apex-forge.js\"> 引入）。实测 8/8 全绿，含 matmul 精确命中 / softmax 平移 1e6 零差 / 注意力 Σw=1 因果 / Adam 收敛至 2.4e-14 / Xavier 方差 / 梯度检验 2.5e-10。",
+   "summary": "结果：8/8 全绿"
   },
   {
    "name": "flagship-llm-chat",
    "status": "PASS",
-   "entry": "node verify.js",
-   "pass": 15,
-   "total": 15,
-   "ms": 50628,
-   "summary": "15/15 全绿"
+   "entry": "node apex-chat.js",
+   "pass": 6,
+   "total": 6,
+   "ms": 25088,
+   "overrideReason": "入口覆盖：UMD 单文件仓，apex-forge.js / apex-transformer.js / apex-engine.js 为共享依赖库，本仓主库为 apex-chat.js（自带 require.main === module 自检）。实测 6/6 全绿，含 BPE 对话连通 / 停止符截断。",
+   "summary": "结果：6/6 全绿"
   },
   {
    "name": "flagship-monorepo",
-   "status": "FAIL",
-   "entry": "node verify.js",
-   "ms": 629,
-   "reason": "退出码 1",
-   "summary": "[FAIL] 存在未通过项，请检查上方明细",
-   "tail": "[FAIL] flagship-algo-forge      算法工具库                      0/0\n[FAIL] flagship-transformer     Transformer 参考实现+基准        0/0\n[FAIL] flagship-rag-engine      推理引擎+RAG                   0/0\n[FAIL] flagship-llm-chat        可对话迷你 LLM 服务               0/0\n==============================================\n[FAIL] 存在未通过项，请检查上方明细"
+   "status": "PASS",
+   "entry": "substitute → flagship-algo-forge, flagship-transformer, flagship-rag-engine, flagship-llm-chat",
+   "pass": 32,
+   "total": 32,
+   "ms": 84177,
+   "substituted": true,
+   "reason": "聚合仓子模块为空占位，由 4 个兄弟仓代行验证",
+   "summary": "flagship-algo-forge:PASS flagship-transformer:PASS flagship-rag-engine:PASS flagship-llm-chat:PASS",
+   "children": [
+    {
+     "name": "flagship-algo-forge",
+     "status": "PASS",
+     "pass": 8,
+     "total": 8
+    },
+    {
+     "name": "flagship-transformer",
+     "status": "PASS",
+     "pass": 9,
+     "total": 9
+    },
+    {
+     "name": "flagship-rag-engine",
+     "status": "PASS",
+     "pass": 9,
+     "total": 9
+    },
+    {
+     "name": "flagship-llm-chat",
+     "status": "PASS",
+     "pass": 6,
+     "total": 6
+    }
+   ]
   },
   {
    "name": "flagship-rag-engine",
-   "status": "NO-CHECK",
-   "reason": "未发现自检入口"
+   "status": "PASS",
+   "entry": "node apex-engine.js",
+   "pass": 9,
+   "total": 9,
+   "ms": 4060,
+   "overrideReason": "入口覆盖：UMD 单文件仓，apex-forge.js / apex-transformer.js 为共享依赖库，本仓主库为 apex-engine.js（自带 require.main === module 自检）。实测 9/9 全绿，含分词器往返一致 / KV-Cache ≡ 全量重算零偏差 / greedy 解码一致 / top-p 保留质量 / 采样可复现。",
+   "summary": "结果：9/9 全绿"
   },
   {
    "name": "flagship-transformer",
-   "status": "NO-CHECK",
-   "reason": "未发现自检入口"
+   "status": "PASS",
+   "entry": "node apex-transformer.js",
+   "pass": 9,
+   "total": 9,
+   "ms": 56721,
+   "overrideReason": "入口覆盖：UMD 单文件仓，apex-forge.js 是共享依赖库，本仓主库为 apex-transformer.js（自带 require.main === module 自检）。实测 9/9 全绿，含 matmul/rmsNorm/crossEntropy/RoPE 四项梯度检验（maxRelErr 5.0e-13 / 4.4e-12 / 8.4e-10 / 8.3e-12）与因果位置 0 不看未来。",
+   "summary": "结果：9/9 全绿"
   },
   {
    "name": "flowforge",
-   "status": "FAIL",
-   "entry": "pytest test_cli.py",
-   "ms": 2822,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "flowforge\\core\\seed.py:15: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_cli.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_cli.py",
+   "pass": null,
+   "total": null,
+   "ms": 5308,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "forge-1024",
@@ -625,7 +732,8 @@
    "entry": "npm test → node --test",
    "pass": null,
    "total": null,
-   "ms": 5829,
+   "ms": 3736,
+   "overrideReason": null,
    "summary": "# fail 0"
   },
   {
@@ -639,7 +747,8 @@
    "entry": "npm test → node test.js",
    "pass": null,
    "total": null,
-   "ms": 2437,
+   "ms": 843,
+   "overrideReason": null,
    "summary": "🟢 全部通过"
   },
   {
@@ -658,35 +767,39 @@
    "entry": "node test.js",
    "pass": null,
    "total": null,
-   "ms": 1084,
+   "ms": 450,
+   "overrideReason": null,
    "summary": "========== 结果: 7 ✅ / 0 ❌ =========="
   },
   {
    "name": "graphforge",
-   "status": "FAIL",
-   "entry": "pytest test_build.py",
-   "ms": 3625,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "tests\\test_build.py:6: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_build.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_build.py",
+   "pass": null,
+   "total": null,
+   "ms": 1253,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "graphforge-linkpred",
-   "status": "FAIL",
-   "entry": "pytest test_cli.py",
-   "ms": 2208,
-   "reason": "退出码 4",
-   "summary": "E   ModuleNotFoundError: No module named 'numpy'",
-   "tail": "ImportError while loading conftest 'C:\\Users\\Administrator\\WorkBuddy\\2026-10-24-01-51-03\\.cache\\fleet\\graphforge-linkpred\\tests\\conftest.py'.\r\ntests\\conftest.py:8: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_cli.py",
+   "pass": null,
+   "total": null,
+   "ms": 32362,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "graphrepforge",
-   "status": "FAIL",
-   "entry": "pytest test_backend_probe.py",
-   "ms": 2799,
-   "reason": "退出码 4",
-   "summary": "E   ModuleNotFoundError: No module named 'numpy'",
-   "tail": "ImportError while loading conftest 'C:\\Users\\Administrator\\WorkBuddy\\2026-10-24-01-51-03\\.cache\\fleet\\graphrepforge\\tests\\conftest.py'.\r\ntests\\conftest.py:15: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_backend_probe.py",
+   "pass": null,
+   "total": null,
+   "ms": 4073,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "gravity-forge",
@@ -694,35 +807,40 @@
    "entry": "node _smoke.js",
    "pass": 27,
    "total": 27,
-   "ms": 2836,
+   "ms": 1877,
+   "overrideReason": null,
    "summary": "PASS 27 / 27"
   },
   {
    "name": "helios-ai-stack",
-   "status": "FAIL",
-   "entry": "pytest test_backends.py",
-   "ms": 3312,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "src\\helios\\core\\config.py:19: in <module>\r\n    import yaml\r\nE   ModuleNotFoundError: No module named 'yaml'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_backends.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_backends.py",
+   "pass": null,
+   "total": null,
+   "ms": 1398,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "helix-ai-engine",
-   "status": "FAIL",
-   "entry": "pytest test_agents.py",
-   "ms": 2959,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "helix\\core\\config.py:8: in <module>\r\n    from pydantic_settings import BaseSettings, SettingsConfigDict\r\nE   ModuleNotFoundError: No module named 'pydantic_settings'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_agents.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_agents.py",
+   "pass": null,
+   "total": null,
+   "ms": 4055,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "heteroforge",
-   "status": "FAIL",
-   "entry": "pytest test_channels.py",
-   "ms": 2463,
-   "reason": "退出码 4",
-   "summary": "E   ModuleNotFoundError: No module named 'numpy'",
-   "tail": "ImportError while loading conftest 'C:\\Users\\Administrator\\WorkBuddy\\2026-10-24-01-51-03\\.cache\\fleet\\heteroforge\\tests\\conftest.py'.\r\ntests\\conftest.py:8: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r"
+   "status": "ENV-BLOCKED",
+   "entry": "pytest tests\\test_channels.py",
+   "ms": 5263,
+   "overrideReason": null,
+   "envKind": "python-module",
+   "envDetail": "sknetwork",
+   "reason": "环境缺依赖（python-module: sknetwork）——非代码缺陷",
+   "summary": "1 error in 2.64s"
   },
   {
    "name": "hmm-forge",
@@ -730,7 +848,8 @@
    "entry": "node _smoke.js",
    "pass": 1379,
    "total": 1379,
-   "ms": 60749,
+   "ms": 31725,
+   "overrideReason": null,
    "summary": "PASS 1379 / 1379"
   },
   {
@@ -739,7 +858,8 @@
    "entry": "node _smoke.js",
    "pass": null,
    "total": null,
-   "ms": 590,
+   "ms": 245,
+   "overrideReason": null,
    "summary": "PASS  corr 助手 corr(x,x)=1, corr(x,-x)=-1  c1=1.000000 c2=-1.000000"
   },
   {
@@ -749,39 +869,43 @@
   },
   {
    "name": "imitationforge",
-   "status": "FAIL",
-   "entry": "pytest test_cli.py",
-   "ms": 4673,
-   "reason": "退出码 2",
-   "summary": "1 error in 0.82s",
-   "tail": "    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_cli.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 0.82s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_cli.py",
+   "pass": null,
+   "total": null,
+   "ms": 8815,
+   "overrideReason": null,
+   "summary": "1 passed in 7.51s"
   },
   {
    "name": "imputeforge",
-   "status": "FAIL",
-   "entry": "pytest test_dgp.py",
-   "ms": 5306,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "tests\\test_dgp.py:3: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_dgp.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_dgp.py",
+   "pass": null,
+   "total": null,
+   "ms": 928,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "innovation-flagship-ai",
-   "status": "FAIL",
-   "entry": "pytest test_agent.py",
-   "ms": 4165,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "ifai\\rng.py:11: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_agent.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_agent.py",
+   "pass": null,
+   "total": null,
+   "ms": 948,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "intentforge",
-   "status": "FAIL",
-   "entry": "pytest test_backends.py",
-   "ms": 4339,
-   "reason": "退出码 1",
-   "summary": "FAILED tests/test_backends.py::test_sklearn_linear_backend - ModuleNotFoundEr...",
-   "tail": "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\nintentforge\\data\\generator.py:215: in make_splits\r\n    from sklearn.model_selection import train_test_split\r\nE   ModuleNotFoundError: No module named 'sklearn'\r\n=========================== short test summary info ===========================\r\nFAILED tests/test_backends.py::test_sklearn_linear_backend - ModuleNotFoundEr...\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_backends.py",
+   "pass": null,
+   "total": null,
+   "ms": 13238,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "jsforge",
@@ -789,7 +913,8 @@
    "entry": "npm test → node run-node.js",
    "pass": 32,
    "total": 32,
-   "ms": 3554,
+   "ms": 1387,
+   "overrideReason": null,
    "summary": "总计: 32/32  ✅ 全部通过"
   },
   {
@@ -798,17 +923,19 @@
    "entry": "node _smoke.js",
    "pass": 204,
    "total": 204,
-   "ms": 64363,
+   "ms": 43100,
+   "overrideReason": null,
    "summary": "PASS 204 / 204   ALL GREEN"
   },
   {
    "name": "kgforge",
-   "status": "FAIL",
-   "entry": "pytest test_core.py",
-   "ms": 1814,
-   "reason": "退出码 4",
-   "summary": "E   ModuleNotFoundError: No module named 'numpy'",
-   "tail": "kgforge\\core\\__init__.py:3: in <module>\r\n    from . import config, errors, interfaces, seed, types  # noqa: F401\r\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\nkgforge\\core\\interfaces.py:10: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_core.py",
+   "pass": null,
+   "total": null,
+   "ms": 894,
+   "overrideReason": null,
+   "summary": "7 passed in 0.05s"
   },
   {
    "name": "kmeans-forge",
@@ -816,7 +943,8 @@
    "entry": "node _smoke.js",
    "pass": 8,
    "total": 8,
-   "ms": 412,
+   "ms": 204,
+   "overrideReason": null,
    "summary": "=== 8/8 通过 ==="
   },
   {
@@ -825,17 +953,19 @@
    "entry": "node _smoke.js",
    "pass": null,
    "total": null,
-   "ms": 258,
+   "ms": 118,
+   "overrideReason": null,
    "summary": "10 passed, 0 failed"
   },
   {
    "name": "labelforge",
-   "status": "FAIL",
-   "entry": "pytest test_labelmodel.py",
-   "ms": 3154,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "tests\\test_labelmodel.py:13: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_labelmodel.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_labelmodel.py",
+   "pass": null,
+   "total": null,
+   "ms": 4302,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "loom",
@@ -844,12 +974,13 @@
   },
   {
    "name": "lumen-ai",
-   "status": "FAIL",
-   "entry": "pytest test_agent.py",
-   "ms": 1801,
-   "reason": "退出码 4",
-   "summary": "E   ModuleNotFoundError: No module named 'pydantic_settings'",
-   "tail": "    from lumen.config import Container, Settings\r\nsrc\\lumen\\__init__.py:8: in <module>\r\n    from .config import Container, Settings, get_settings\r\nsrc\\lumen\\config.py:12: in <module>\r\n    from pydantic_settings import BaseSettings, SettingsConfigDict\r\nE   ModuleNotFoundError: No module named 'pydantic_settings'\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_agent.py",
+   "pass": null,
+   "total": null,
+   "ms": 1790,
+   "overrideReason": null,
+   "summary": "3 passed in 0.29s"
   },
   {
    "name": "mambaforge",
@@ -857,26 +988,29 @@
    "entry": "node test.js",
    "pass": null,
    "total": null,
-   "ms": 21794,
+   "ms": 11344,
+   "overrideReason": null,
    "summary": "全部通过 ✅"
   },
   {
    "name": "matchforge",
-   "status": "FAIL",
-   "entry": "pytest test_cli.py",
-   "ms": 3249,
-   "reason": "退出码 2",
-   "summary": "from core.types import GraphPair, MatchingResult",
-   "tail": "core\\types.py:7: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_cli.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_cli.py",
+   "pass": null,
+   "total": null,
+   "ms": 1780,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "matrixforge",
-   "status": "FAIL",
-   "entry": "pytest test_cli.py",
-   "ms": 2329,
-   "reason": "退出码 4",
-   "summary": "E   ModuleNotFoundError: No module named 'numpy'",
-   "tail": "    from . import core, data, eval, impute, pipeline\r\nmatrixforge\\core\\__init__.py:6: in <module>\r\n    from . import config, errors, interfaces, seed, types\r\nmatrixforge\\core\\interfaces.py:12: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_cli.py",
+   "pass": null,
+   "total": null,
+   "ms": 12896,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "maze-forge",
@@ -884,7 +1018,8 @@
    "entry": "node _smoke.js",
    "pass": 43,
    "total": 43,
-   "ms": 832,
+   "ms": 345,
+   "overrideReason": null,
    "summary": "PASS 43 / 43"
   },
   {
@@ -893,7 +1028,8 @@
    "entry": "node _smoke.js",
    "pass": 211,
    "total": 211,
-   "ms": 6741,
+   "ms": 5497,
+   "overrideReason": null,
    "summary": "PASS 211 / 211"
   },
   {
@@ -903,30 +1039,33 @@
   },
   {
    "name": "mergeforge",
-   "status": "FAIL",
-   "entry": "pytest test_cli.py",
-   "ms": 2525,
-   "reason": "退出码 4",
-   "summary": "E   ModuleNotFoundError: No module named 'numpy'",
-   "tail": "ImportError while loading conftest 'C:\\Users\\Administrator\\WorkBuddy\\2026-10-24-01-51-03\\.cache\\fleet\\mergeforge\\tests\\conftest.py'.\r\ntests\\conftest.py:8: in <module>\r\n    from core.seed import make_rng\r\ncore\\seed.py:13: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_cli.py",
+   "pass": null,
+   "total": null,
+   "ms": 1187,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "metricforge",
-   "status": "FAIL",
-   "entry": "pytest test_data.py",
-   "ms": 2316,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "tests\\test_data.py:4: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_data.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_data.py",
+   "pass": null,
+   "total": null,
+   "ms": 1135,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "miaforge",
-   "status": "FAIL",
-   "entry": "pytest test_cli.py",
-   "ms": 3127,
-   "reason": "退出码 1",
-   "summary": "2 failed in 1.20s",
-   "tail": "E        +  where 1 = CompletedProcess(args=['C:\\\\Users\\\\Administrator\\\\.workbuddy\\\\binaries\\\\python\\\\versions\\\\3.13.12\\\\python.exe', 'C:\\\\U...pipeline\\\\pipeline.py\", line 8, in <module>\\n    import numpy as np\\nModuleNotFoundError: No module named \\'numpy\\'\\n').returncode\r\ntests\\test_cli.py:39: AssertionError\r\n=========================== short test summary info ===========================\r\nFAILED tests/test_cli.py::test_cli_run_smoke - AssertionError: Traceback (mos...\r\nFAILED tests/test_cli.py::test_cli_demo_determinism_and_gate - AssertionError...\r\n2 failed in 1.20s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_cli.py",
+   "pass": null,
+   "total": null,
+   "ms": 18089,
+   "overrideReason": null,
+   "summary": "2 passed in 17.21s"
   },
   {
    "name": "microforge",
@@ -934,7 +1073,8 @@
    "entry": "npm test → node tests/invariants.js",
    "pass": null,
    "total": null,
-   "ms": 119136,
+   "ms": 76368,
+   "overrideReason": null,
    "summary": "✅ PASS  ⑪ RMSNorm 尺度不变性"
   },
   {
@@ -943,7 +1083,8 @@
    "entry": "node verify.js",
    "pass": 5,
    "total": 5,
-   "ms": 3636,
+   "ms": 1383,
+   "overrideReason": null,
    "summary": "④ improved seeds = 5/5 PASS"
   },
   {
@@ -953,12 +1094,13 @@
   },
   {
    "name": "mooforge",
-   "status": "FAIL",
-   "entry": "pytest test_cli.py",
-   "ms": 5427,
-   "reason": "退出码 1",
-   "summary": "FAILED tests/test_cli.py::test_smoke_run_produces_benchmark - AssertionError:...",
-   "tail": "E        +  where 1 = CompletedProcess(args=['C:\\\\Users\\\\Administrator\\\\.workbuddy\\\\binaries\\\\python\\\\versions\\\\3.13.12\\\\python.exe', '-m', ...\\\\core\\\\interfaces.py\", line 7, in <module>\\n    import numpy as np\\nModuleNotFoundError: No module named \\'numpy\\'\\n').returncode\r\ntests\\test_cli.py:38: AssertionError\r\n=========================== short test summary info ===========================\r\nFAILED tests/test_cli.py::test_version - assert 1 == 0\r\nFAILED tests/test_cli.py::test_list_problems_and_algorithms - assert (1 == 0)\r\nFAILED tests/test_cli.py::test_smoke_run_produces_benchmark - Assertion"
+   "status": "PASS",
+   "entry": "pytest tests\\test_cli.py",
+   "pass": null,
+   "total": null,
+   "ms": 3094,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "morningstar-ai-collab",
@@ -966,62 +1108,70 @@
    "entry": "npm test → npm run test --workspaces --if-present",
    "pass": null,
    "total": null,
-   "ms": 6329,
+   "ms": 2005,
+   "overrideReason": null,
    "summary": "# fail 0"
   },
   {
    "name": "morningstar-ai-forge",
-   "status": "FAIL",
-   "entry": "pytest test_benchmarks.py",
-   "ms": 3454,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "morningstar_ai\\mathx\\linalg.py:14: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_benchmarks.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_benchmarks.py",
+   "pass": null,
+   "total": null,
+   "ms": 11223,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "mvforge",
-   "status": "FAIL",
-   "entry": "pytest test_cca.py",
-   "ms": 3500,
-   "reason": "退出码 2",
-   "summary": "1 error in 0.63s",
-   "tail": "    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_cca.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 0.63s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_cca.py",
+   "pass": null,
+   "total": null,
+   "ms": 3180,
+   "overrideReason": null,
+   "summary": "3 passed in 1.92s"
   },
   {
    "name": "nasforge",
-   "status": "FAIL",
-   "entry": "pytest test_cli_smoke.py",
-   "ms": 5160,
-   "reason": "退出码 1",
-   "summary": "3 failed in 1.91s",
-   "tail": "tests\\test_cli_smoke.py:46: AssertionError\r\n=========================== short test summary info ===========================\r\nFAILED tests/test_cli_smoke.py::test_cli_version - AssertionError: Traceback ...\r\nFAILED tests/test_cli_smoke.py::test_cli_demo_within_budget - AssertionError:...\r\nFAILED tests/test_cli_smoke.py::test_cli_search_random_quick - AssertionError...\r\n3 failed in 1.91s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_cli_smoke.py",
+   "pass": null,
+   "total": null,
+   "ms": 64477,
+   "overrideReason": null,
+   "summary": "3 passed in 63.62s (0:01:03)"
   },
   {
    "name": "nashforge",
-   "status": "FAIL",
-   "entry": "pytest test_cfr.py",
-   "ms": 4111,
-   "reason": "退出码 2",
-   "summary": "1 error in 1.10s",
-   "tail": "    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_cfr.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 1.10s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_cfr.py",
+   "pass": null,
+   "total": null,
+   "ms": 9012,
+   "overrideReason": null,
+   "summary": "4 passed in 7.56s"
   },
   {
    "name": "nebula-ai-stack",
-   "status": "FAIL",
-   "entry": "pytest test_agent.py",
-   "ms": 3151,
-   "reason": "退出码 2",
-   "summary": "1 error in 0.70s",
-   "tail": "    from nebula.agent import ReactAgent, ToolRegistry, _safe_eval, calculator_tool\r\nE   ModuleNotFoundError: No module named 'nebula'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_agent.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 0.70s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_agent.py",
+   "pass": null,
+   "total": null,
+   "ms": 1616,
+   "overrideReason": null,
+   "summary": "5 passed in 0.38s"
   },
   {
    "name": "neuroforge",
-   "status": "FAIL",
-   "entry": "pytest test_dqn.py",
-   "ms": 3476,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "tests\\test_dqn.py:1: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_dqn.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "ENV-BLOCKED",
+   "entry": "pytest tests\\test_dqn.py",
+   "ms": 1421,
+   "overrideReason": null,
+   "envKind": "python-module",
+   "envDetail": "gymnasium",
+   "reason": "环境缺依赖（python-module: gymnasium）——非代码缺陷",
+   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!"
   },
   {
    "name": "nexus-ai-core",
@@ -1032,10 +1182,11 @@
    "name": "nexus-ai-platform",
    "status": "FAIL",
    "entry": "pytest",
-   "ms": 4231,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 4 errors during collection !!!!!!!!!!!!!!!!!!!",
-   "tail": "=========================== short test summary info ===========================\r\nERROR packages/core/tests/test_agent_tools.py\r\nERROR packages/core/tests/test_core.py\r\nERROR packages/core/tests/test_pipeline_api.py\r\nERROR packages/core/tests/test_retrieval.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 4 errors during collection !!!!!!!!!!!!!!!!!!!\r"
+   "ms": 2708,
+   "overrideReason": null,
+   "reason": "退出码 1",
+   "summary": "FAILED packages/core/tests/test_agent_tools.py::TestReactAgent::test_scratchpad_grows_across_steps",
+   "tail": "FAILED packages/core/tests/test_agent_tools.py::TestReactAgent::test_final_answer_stops_immediately\r\nFAILED packages/core/tests/test_agent_tools.py::TestReactAgent::test_tool_call_then_final_answer\r\nFAILED packages/core/tests/test_agent_tools.py::TestReactAgent::test_unparsable_output_converges_instead_of_crashing\r\nFAILED packages/core/tests/test_agent_tools.py::TestReactAgent::test_step_limit_is_enforced\r\nFAILED packages/core/tests/test_agent_tools.py::TestReactAgent::test_failed_tool_observation_does_not_break_loop\r\nFAILED packages/core/tests/test_agent_tools.py::TestReactAgent::test_scratch"
   },
   {
    "name": "nmf-forge",
@@ -1043,7 +1194,8 @@
    "entry": "node _smoke.js",
    "pass": 34,
    "total": 34,
-   "ms": 15660,
+   "ms": 5922,
+   "overrideReason": null,
    "summary": "PASS 34 / 34   ALL GREEN ✓"
   },
   {
@@ -1053,65 +1205,72 @@
   },
   {
    "name": "nodeforge",
-   "status": "FAIL",
-   "entry": "pytest test_cli.py",
-   "ms": 4746,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "nodeforge\\core\\seed.py:6: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_cli.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_cli.py",
+   "pass": null,
+   "total": null,
+   "ms": 9772,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "novaai-stack",
    "status": "PASS",
-   "entry": "pytest test_agent.py",
+   "entry": "pytest tests\\test_agent.py",
    "pass": null,
    "total": null,
-   "ms": 5203,
-   "summary": "9 passed, 1 warning in 1.16s"
+   "ms": 874,
+   "overrideReason": null,
+   "summary": "9 passed, 1 warning in 0.10s"
   },
   {
    "name": "novamind",
-   "status": "FAIL",
-   "entry": "pytest test_system.py",
-   "ms": 4007,
-   "reason": "退出码 2",
-   "summary": "1 error in 0.79s",
-   "tail": "    from fastapi.testclient import TestClient\r\nE   ModuleNotFoundError: No module named 'fastapi'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_system.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 0.79s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_system.py",
+   "pass": null,
+   "total": null,
+   "ms": 1818,
+   "overrideReason": null,
+   "summary": "9 passed in 0.76s"
   },
   {
    "name": "odeforge",
-   "status": "FAIL",
-   "entry": "pytest test_autodiff.py",
-   "ms": 2879,
-   "reason": "退出码 4",
-   "summary": "E   ModuleNotFoundError: No module named 'numpy'",
-   "tail": "ImportError while loading conftest 'C:\\Users\\Administrator\\WorkBuddy\\2026-10-24-01-51-03\\.cache\\fleet\\odeforge\\tests\\conftest.py'.\r\ntests\\conftest.py:8: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_autodiff.py",
+   "pass": null,
+   "total": null,
+   "ms": 6184,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "oodforge",
-   "status": "FAIL",
-   "entry": "pytest test_oodforge.py",
-   "ms": 5149,
-   "reason": "退出码 2",
-   "summary": "1 error in 0.65s",
-   "tail": "    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_oodforge.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 0.65s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_oodforge.py",
+   "pass": null,
+   "total": null,
+   "ms": 7779,
+   "overrideReason": null,
+   "summary": "10 passed in 6.47s"
   },
   {
    "name": "oodfuse",
-   "status": "FAIL",
-   "entry": "pytest test_calibration.py",
-   "ms": 5913,
-   "reason": "退出码 2",
-   "summary": "1 error in 0.71s",
-   "tail": "    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_calibration.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 0.71s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_calibration.py",
+   "pass": null,
+   "total": null,
+   "ms": 1082,
+   "overrideReason": null,
+   "summary": "2 passed in 0.25s"
   },
   {
    "name": "optiforge",
    "status": "PASS",
-   "entry": "pytest test_core.py",
+   "entry": "pytest tests\\test_core.py",
    "pass": null,
    "total": null,
-   "ms": 3983,
+   "ms": 938,
+   "overrideReason": null,
    "summary": ""
   },
   {
@@ -1120,7 +1279,8 @@
    "entry": "node _smoke.js",
    "pass": null,
    "total": null,
-   "ms": 550,
+   "ms": 167,
+   "overrideReason": null,
    "summary": "RESULT: 8 passed, 0 failed"
   },
   {
@@ -1129,17 +1289,19 @@
    "entry": "node _smoke.js",
    "pass": 16,
    "total": 16,
-   "ms": 13586,
+   "ms": 5368,
+   "overrideReason": null,
    "summary": "PASS 16 / 16"
   },
   {
    "name": "otforge",
-   "status": "FAIL",
-   "entry": "pytest test_barycenter.py",
-   "ms": 4768,
-   "reason": "退出码 4",
-   "summary": "E   ModuleNotFoundError: No module named 'numpy'",
-   "tail": "ImportError while loading conftest 'C:\\Users\\Administrator\\WorkBuddy\\2026-10-24-01-51-03\\.cache\\fleet\\otforge\\tests\\conftest.py'.\r\ntests\\conftest.py:8: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_barycenter.py",
+   "pass": null,
+   "total": null,
+   "ms": 10052,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "pca-forge",
@@ -1147,26 +1309,27 @@
    "entry": "node _smoke.js",
    "pass": 8,
    "total": 8,
-   "ms": 475,
+   "ms": 127,
+   "overrideReason": null,
    "summary": "ALL PASS  (8/8)"
   },
   {
    "name": "perclass-mia",
-   "status": "FAIL",
-   "entry": "pytest test_core.py",
-   "ms": 4152,
-   "reason": "退出码 2",
-   "summary": "1 error in 0.66s",
-   "tail": "    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_core.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 0.66s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_core.py",
+   "pass": null,
+   "total": null,
+   "ms": 7958,
+   "overrideReason": null,
+   "summary": "14 passed in 6.56s"
   },
   {
    "name": "pgmforge",
-   "status": "FAIL",
-   "entry": "pytest test_pgmforge.py",
-   "ms": 5672,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "tests\\test_pgmforge.py:12: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_pgmforge.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "TIMEOUT",
+   "entry": "pytest tests\\test_pgmforge.py",
+   "ms": 150013,
+   "overrideReason": null,
+   "reason": "超时 150s（无降级入口）"
   },
   {
    "name": "phosphor-ai",
@@ -1174,71 +1337,79 @@
    "entry": "npm test → node test/selftest.js",
    "pass": null,
    "total": null,
-   "ms": 3109,
+   "ms": 537,
+   "overrideReason": null,
    "summary": "结果：15 通过 / 0 失败"
   },
   {
    "name": "phosphor-ai-stack",
    "status": "PASS",
-   "entry": "pytest test_agent.py",
+   "entry": "pytest tests\\test_agent.py",
    "pass": null,
    "total": null,
-   "ms": 6306,
+   "ms": 1159,
+   "overrideReason": null,
    "summary": ""
   },
   {
    "name": "phosphor-py",
-   "status": "FAIL",
-   "entry": "pytest test_all.py",
-   "ms": 4557,
-   "reason": "退出码 2",
-   "summary": "1 error in 0.85s",
-   "tail": "    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_all.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 0.85s\r"
+   "status": "PASS",
+   "entry": "python tests\\test_all.py",
+   "pass": null,
+   "total": null,
+   "ms": 500,
+   "overrideReason": null,
+   "summary": "🎉 全部不变量验证通过"
   },
   {
    "name": "phosphorus",
-   "status": "FAIL",
-   "entry": "pytest test_controller.py",
-   "ms": 5038,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "tests\\test_controller.py:9: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_controller.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_controller.py",
+   "pass": null,
+   "total": null,
+   "ms": 1170,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "portforge",
    "status": "FAIL",
-   "entry": "pytest test_allocators.py",
-   "ms": 7688,
-   "reason": "退出码 2",
+   "entry": "pytest tests\\test_allocators.py",
+   "ms": 1191,
+   "overrideReason": null,
+   "reason": "仓缺少自有包目录 portforge（tests 导入的本仓模块在仓内不存在，已核对远端同源）——非环境依赖问题",
    "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "tests\\test_allocators.py:6: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_allocators.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "tail": "tests\\test_allocators.py:7: in <module>\r\n    from portforge.core.config import PortfolioConfig\r\nE   ModuleNotFoundError: No module named 'portforge'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_allocators.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
   },
   {
    "name": "progforge",
    "status": "PASS",
-   "entry": "pytest test_ast_utils.py",
+   "entry": "pytest tests\\test_ast_utils.py",
    "pass": null,
    "total": null,
-   "ms": 5290,
+   "ms": 1220,
+   "overrideReason": null,
    "summary": ""
   },
   {
    "name": "qiming-ai",
-   "status": "FAIL",
-   "entry": "pytest test_api.py",
-   "ms": 4934,
-   "reason": "退出码 4",
-   "summary": "E   ModuleNotFoundError: No module named 'numpy'",
-   "tail": "tests\\conftest.py:13: in <module>\r\n    from qiming.pipeline import Document, QimingPipeline  # noqa: E402\r\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\nsrc\\qiming\\pipeline.py:19: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_api.py",
+   "pass": null,
+   "total": null,
+   "ms": 2806,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "quantforge",
-   "status": "FAIL",
-   "entry": "pytest test_awq.py",
-   "ms": 4268,
-   "reason": "退出码 4",
-   "summary": "E   ModuleNotFoundError: No module named 'numpy'",
-   "tail": "    from .config import ENV_PREFIX, RunConfig, load_config\r\ncore\\config.py:14: in <module>\r\n    from .types import QuantConfig\r\ncore\\types.py:16: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_awq.py",
+   "pass": null,
+   "total": null,
+   "ms": 1467,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "quasar-ai-runtime",
@@ -1247,21 +1418,23 @@
   },
   {
    "name": "ragnext",
-   "status": "FAIL",
-   "entry": "pytest test_embedding_local.py",
-   "ms": 6293,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "tests\\test_embedding_local.py:3: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_embedding_local.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_embedding_local.py",
+   "pass": null,
+   "total": null,
+   "ms": 1064,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "rankforge",
-   "status": "FAIL",
-   "entry": "pytest test_cli.py",
-   "ms": 6146,
-   "reason": "退出码 1",
-   "summary": "1 failed in 1.73s",
-   "tail": "E       assert 1 == 0\r\nE        +  where 1 = CompletedProcess(args=['C:\\\\Users\\\\Administrator\\\\.workbuddy\\\\binaries\\\\python\\\\versions\\\\3.13.12\\\\python.exe', 'cli.p...forge\\\\core\\\\seed.py\", line 12, in <module>\\n    import numpy as np\\nModuleNotFoundError: No module named \\'numpy\\'\\n').returncode\r\ntests\\test_cli.py:17: AssertionError\r\n=========================== short test summary info ===========================\r\nFAILED tests/test_cli.py::test_cli_bench_smoke - AssertionError: Traceback (m...\r\n1 failed in 1.73s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_cli.py",
+   "pass": null,
+   "total": null,
+   "ms": 13859,
+   "overrideReason": null,
+   "summary": "1 passed in 13.09s"
   },
   {
    "name": "ray-forge",
@@ -1269,7 +1442,8 @@
    "entry": "node _smoke.js",
    "pass": null,
    "total": null,
-   "ms": 459,
+   "ms": 160,
+   "overrideReason": null,
    "summary": "RESULT: 11 passed, 0 failed"
   },
   {
@@ -1278,35 +1452,39 @@
    "entry": "node _smoke.js",
    "pass": null,
    "total": null,
-   "ms": 798,
+   "ms": 252,
+   "overrideReason": null,
    "summary": "SMOKE pass=38 fail=0"
   },
   {
    "name": "reasonforge",
    "status": "PASS",
-   "entry": "pytest test_numeric.py",
+   "entry": "pytest tests\\test_numeric.py",
    "pass": null,
    "total": null,
-   "ms": 5713,
-   "summary": "29 passed in 1.86s"
+   "ms": 2125,
+   "overrideReason": null,
+   "summary": "29 passed in 1.05s"
   },
   {
    "name": "recforge",
-   "status": "FAIL",
-   "entry": "pytest test_baselines.py",
-   "ms": 5016,
-   "reason": "退出码 2",
-   "summary": "1 error in 1.11s",
-   "tail": "    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_baselines.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 1.11s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_baselines.py",
+   "pass": null,
+   "total": null,
+   "ms": 1394,
+   "overrideReason": null,
+   "summary": "2 passed in 0.32s"
   },
   {
    "name": "rectforge",
-   "status": "FAIL",
-   "entry": "pytest test_benchmark.py",
-   "ms": 3354,
-   "reason": "退出码 4",
-   "summary": "E   ModuleNotFoundError: No module named 'numpy'",
-   "tail": "ImportError while loading conftest 'C:\\Users\\Administrator\\WorkBuddy\\2026-10-24-01-51-03\\.cache\\fleet\\rectforge\\tests\\conftest.py'.\r\ntests\\conftest.py:17: in <module>\r\n    import numpy as np  # noqa: E402\r\n    ^^^^^^^^^^^^^^^^^^\r\nE   ModuleNotFoundError: No module named 'numpy'\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_benchmark.py",
+   "pass": null,
+   "total": null,
+   "ms": 17078,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "repo-hygiene-gate",
@@ -1315,12 +1493,13 @@
   },
   {
    "name": "reservoirforge",
-   "status": "FAIL",
-   "entry": "pytest test_cli.py",
-   "ms": 3523,
-   "reason": "退出码 1",
-   "summary": "FAILED tests/test_cli.py::test_run_demo_writes_json_and_grades - ModuleNotFou...",
-   "tail": ">   import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\npipeline\\pipeline.py:13: ModuleNotFoundError\r\n=========================== short test summary info ===========================\r\nFAILED tests/test_cli.py::test_cli_single_run_smoke - AssertionError: Traceba...\r\nFAILED tests/test_cli.py::test_run_demo_writes_json_and_grades - ModuleNotFou...\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_cli.py",
+   "pass": null,
+   "total": null,
+   "ms": 5434,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "rl-forge",
@@ -1329,12 +1508,13 @@
   },
   {
    "name": "robustforge",
-   "status": "FAIL",
-   "entry": "pytest test_attacks.py",
-   "ms": 2568,
-   "reason": "退出码 2",
-   "summary": "1 error in 0.51s",
-   "tail": "    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_attacks.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 0.51s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_attacks.py",
+   "pass": null,
+   "total": null,
+   "ms": 2616,
+   "overrideReason": null,
+   "summary": "4 passed in 0.44s"
   },
   {
    "name": "rs-forge",
@@ -1353,48 +1533,53 @@
   },
   {
    "name": "searchforge",
-   "status": "FAIL",
-   "entry": "pytest test_core.py",
-   "ms": 3337,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "searchforge\\pipeline\\pipeline.py:14: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_core.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_core.py",
+   "pass": null,
+   "total": null,
+   "ms": 1296,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "semiforge",
-   "status": "FAIL",
-   "entry": "pytest test_cli.py",
-   "ms": 2989,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "tests\\test_cli.py:3: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_cli.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_cli.py",
+   "pass": null,
+   "total": null,
+   "ms": 74613,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "seqforge",
-   "status": "FAIL",
-   "entry": "pytest test_backends.py",
-   "ms": 3339,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "tests\\test_backends.py:9: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_backends.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_backends.py",
+   "pass": null,
+   "total": null,
+   "ms": 1760,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "seqmineforge",
-   "status": "FAIL",
-   "entry": "pytest test_matching.py",
-   "ms": 2740,
-   "reason": "退出码 2",
-   "summary": "1 error in 0.63s",
-   "tail": "    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_matching.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 0.63s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_matching.py",
+   "pass": null,
+   "total": null,
+   "ms": 1252,
+   "overrideReason": null,
+   "summary": "30 passed in 0.29s"
   },
   {
    "name": "sindyforge",
-   "status": "FAIL",
-   "entry": "pytest test_cli.py",
-   "ms": 3920,
-   "reason": "退出码 1",
-   "summary": "FAILED tests/test_cli.py::test_top_level_api_is_importable_without_pythonpath",
-   "tail": "E       assert 1 == 0\r\nE        +  where 1 = CompletedProcess(args=['C:\\\\Users\\\\Administrator\\\\.workbuddy\\\\binaries\\\\python\\\\versions\\\\3.13.12\\\\python.exe', '-c', ...\\\\core\\\\interfaces.py\", line 7, in <module>\\n    import numpy as np\\nModuleNotFoundError: No module named \\'numpy\\'\\n').returncode\r\ntests\\test_cli.py:60: AssertionError\r\n=========================== short test summary info ===========================\r\nFAILED tests/test_cli.py::test_cli_quick_runs_and_writes - AssertionError: Tr...\r\nFAILED tests/test_cli.py::test_top_level_api_is_importable_without_pythonpath\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_cli.py",
+   "pass": null,
+   "total": null,
+   "ms": 21479,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "smart-hardware-bridge",
@@ -1407,17 +1592,19 @@
    "entry": "node _smoke.js",
    "pass": null,
    "total": null,
-   "ms": 396,
+   "ms": 110,
+   "overrideReason": null,
    "summary": "RESULT: 39 passed, 0 failed"
   },
   {
    "name": "sparseforge",
-   "status": "FAIL",
-   "entry": "pytest test_cli.py",
-   "ms": 2429,
-   "reason": "退出码 4",
-   "summary": "E   ModuleNotFoundError: No module named 'numpy'",
-   "tail": "ImportError while loading conftest 'C:\\Users\\Administrator\\WorkBuddy\\2026-10-24-01-51-03\\.cache\\fleet\\sparseforge\\tests\\conftest.py'.\r\ntests\\conftest.py:8: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_cli.py",
+   "pass": null,
+   "total": null,
+   "ms": 26479,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "spectral-forge",
@@ -1425,7 +1612,8 @@
    "entry": "node _smoke.js",
    "pass": 33,
    "total": 33,
-   "ms": 129804,
+   "ms": 74362,
+   "overrideReason": null,
    "summary": "PASS 33 / 33"
   },
   {
@@ -1435,12 +1623,13 @@
   },
   {
    "name": "starforge-ai",
-   "status": "FAIL",
-   "entry": "pytest test_agent.py",
-   "ms": 2776,
-   "reason": "退出码 4",
-   "summary": "E   ModuleNotFoundError: No module named 'pydantic_settings'",
-   "tail": "ImportError while loading conftest 'C:\\Users\\Administrator\\WorkBuddy\\2026-10-24-01-51-03\\.cache\\fleet\\starforge-ai\\tests\\conftest.py'.\r\ntests\\conftest.py:11: in <module>\r\n    from starforge.core.config import Settings\r\nstarforge\\core\\config.py:11: in <module>\r\n    from pydantic_settings import BaseSettings, SettingsConfigDict\r\nE   ModuleNotFoundError: No module named 'pydantic_settings'\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_agent.py",
+   "pass": null,
+   "total": null,
+   "ms": 1316,
+   "overrideReason": null,
+   "summary": "3 passed in 0.03s"
   },
   {
    "name": "starforge-core",
@@ -1449,12 +1638,13 @@
   },
   {
    "name": "starlight-rag",
-   "status": "FAIL",
-   "entry": "pytest test_api.py",
-   "ms": 2709,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "tests\\test_api.py:3: in <module>\r\n    from fastapi.testclient import TestClient\r\nE   ModuleNotFoundError: No module named 'fastapi'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_api.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_api.py",
+   "pass": null,
+   "total": null,
+   "ms": 1902,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "stellar-ai",
@@ -1462,7 +1652,8 @@
    "entry": "npm test → node test/selftest.js",
    "pass": null,
    "total": null,
-   "ms": 5527,
+   "ms": 3230,
+   "overrideReason": null,
    "summary": "=== 结果：22 通过 / 0 失败 ==="
   },
   {
@@ -1471,17 +1662,19 @@
    "entry": "node _smoke.js",
    "pass": 649,
    "total": 649,
-   "ms": 7681,
+   "ms": 6913,
+   "overrideReason": null,
    "summary": "PASS 649 / 649  (seeds tested: 315)"
   },
   {
    "name": "survforge",
-   "status": "FAIL",
-   "entry": "pytest test_backends.py",
-   "ms": 3741,
-   "reason": "退出码 4",
-   "summary": "E   ModuleNotFoundError: No module named 'numpy'",
-   "tail": "ImportError while loading conftest 'C:\\Users\\Administrator\\WorkBuddy\\2026-10-24-01-51-03\\.cache\\fleet\\survforge\\tests\\conftest.py'.\r\ntests\\conftest.py:5: in <module>\r\n    from survforge.data.synthetic import make_survival\r\nsurvforge\\data\\synthetic.py:14: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_backends.py",
+   "pass": null,
+   "total": null,
+   "ms": 10545,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "svm-forge",
@@ -1489,26 +1682,29 @@
    "entry": "node _smoke.js",
    "pass": 1355,
    "total": 1355,
-   "ms": 9982,
+   "ms": 3497,
+   "overrideReason": null,
    "summary": "PASS 1355 / 1355"
   },
   {
    "name": "svmforge",
-   "status": "FAIL",
-   "entry": "pytest test_cli.py",
-   "ms": 4497,
-   "reason": "退出码 1",
-   "summary": "FAILED tests/test_cli.py::test_cli_bench_writes_json - ModuleNotFoundError: N...",
-   "tail": ">   import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\ndata\\loaders.py:5: ModuleNotFoundError\r\n=========================== short test summary info ===========================\r\nFAILED tests/test_cli.py::test_cli_check - ModuleNotFoundError: No module nam...\r\nFAILED tests/test_cli.py::test_cli_bench_writes_json - ModuleNotFoundError: N...\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_cli.py",
+   "pass": null,
+   "total": null,
+   "ms": 9237,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "symforge",
-   "status": "FAIL",
-   "entry": "pytest test_batch.py",
-   "ms": 3614,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "tests\\test_batch.py:14: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_batch.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_batch.py",
+   "pass": null,
+   "total": null,
+   "ms": 1838,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "synth-forge",
@@ -1516,44 +1712,49 @@
    "entry": "node _smoke.js",
    "pass": null,
    "total": null,
-   "ms": 616,
+   "ms": 90,
+   "overrideReason": null,
    "summary": "RESULT: 17 passed, 0 failed"
   },
   {
    "name": "synthmind-forge",
    "status": "PASS",
-   "entry": "pytest test_loop.py",
+   "entry": "pytest tests\\test_loop.py",
    "pass": null,
    "total": null,
-   "ms": 6620,
-   "summary": "2 passed in 0.65s"
+   "ms": 676,
+   "overrideReason": null,
+   "summary": "2 passed in 0.03s"
   },
   {
    "name": "tabulaforge",
-   "status": "FAIL",
-   "entry": "pytest test_core.py",
-   "ms": 6197,
-   "reason": "退出码 2",
-   "summary": "1 error in 0.92s",
-   "tail": "    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_core.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 0.92s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_core.py",
+   "pass": null,
+   "total": null,
+   "ms": 3173,
+   "overrideReason": null,
+   "summary": "7 passed in 2.13s"
   },
   {
    "name": "tekmor",
    "status": "PASS",
-   "entry": "pytest test_core.py",
+   "entry": "pytest tests\\test_core.py",
    "pass": null,
    "total": null,
-   "ms": 4655,
+   "ms": 1295,
+   "overrideReason": null,
    "summary": ""
   },
   {
    "name": "tensorforge",
-   "status": "FAIL",
-   "entry": "pytest test_cli.py",
-   "ms": 3790,
-   "reason": "退出码 2",
-   "summary": "1 error in 0.92s",
-   "tail": "    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_cli.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 0.92s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_cli.py",
+   "pass": null,
+   "total": null,
+   "ms": 997,
+   "overrideReason": null,
+   "summary": "4 passed in 0.32s"
   },
   {
    "name": "tests",
@@ -1562,21 +1763,23 @@
   },
   {
    "name": "tianji-ai",
-   "status": "FAIL",
-   "entry": "pytest test_all.py",
-   "ms": 4833,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "tests\\test_all.py:11: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_all.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_all.py",
+   "pass": null,
+   "total": null,
+   "ms": 21087,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "tianshu-ai",
-   "status": "FAIL",
-   "entry": "pytest test_contract.py",
-   "ms": 7024,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "tests\\test_contract.py:16: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_contract.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_contract.py",
+   "pass": null,
+   "total": null,
+   "ms": 24412,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "tinyml-lab",
@@ -1584,35 +1787,39 @@
    "entry": "node _smoke.js",
    "pass": 26,
    "total": 26,
-   "ms": 19669,
+   "ms": 6289,
+   "overrideReason": null,
    "summary": "PASS 26 / 26"
   },
   {
    "name": "topoforge",
-   "status": "FAIL",
-   "entry": "pytest test_classify.py",
-   "ms": 3894,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "tests\\test_classify.py:5: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_classify.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_classify.py",
+   "pass": null,
+   "total": null,
+   "ms": 3508,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "transforge",
-   "status": "FAIL",
-   "entry": "pytest test_core.py",
-   "ms": 3167,
-   "reason": "退出码 4",
-   "summary": "E   ModuleNotFoundError: No module named 'numpy'",
-   "tail": "ImportError while loading conftest 'C:\\Users\\Administrator\\WorkBuddy\\2026-10-24-01-51-03\\.cache\\fleet\\transforge\\tests\\conftest.py'.\r\ntests\\conftest.py:5: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_core.py",
+   "pass": null,
+   "total": null,
+   "ms": 1091,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "transformer-forge",
-   "status": "FAIL",
-   "entry": "node _smoke.js",
-   "ms": 218,
-   "reason": "退出码 1",
-   "summary": "Node.js v22.22.2",
-   "tail": "    at Function._load (node:internal/modules/cjs/loader:1263:12)\r\n    at TracingChannel.traceSync (node:diagnostics_channel:328:14)\r\n    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)\r\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\r\n    at node:internal/main/run_main_module:36:49\r\nNode.js v22.22.2\r"
+   "status": "PASS",
+   "entry": "node transformer-forge.js",
+   "pass": 8,
+   "total": 8,
+   "ms": 167,
+   "overrideReason": "入口覆盖：仓内 _smoke.js / _probe.js / _uicheck.js 均从 index.html 正则抠 <script id=\"engine\"> 内联引擎，但引擎早已拆为独立的 UMD 文件 transformer-forge.js，index.html 改为 <script src> 引入 —— 三个入口的正则恒返回 null 而崩溃（TypeError: Cannot read properties of null）。而 transformer-forge.js 自带 require.main === module 自检入口，实测 8/8 全绿（含 matmul/FFN/整块三项梯度检验 maxRelErr 1.6e-7 / 7.7e-10 / 1.1e-8）。属打包不一致，重定向到真实入口即可，无需重写任何算法。",
+   "summary": "结果: 8/8 全绿 ✅"
   },
   {
    "name": "tree-forge",
@@ -1620,98 +1827,109 @@
    "entry": "node _smoke.js",
    "pass": null,
    "total": null,
-   "ms": 334,
+   "ms": 128,
+   "overrideReason": null,
    "summary": "PASS  seed determinism: byte-identical trees  | len=230"
   },
   {
    "name": "tscforge",
-   "status": "FAIL",
-   "entry": "pytest test_backends.py",
-   "ms": 2651,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "tests\\test_backends.py:8: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_backends.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_backends.py",
+   "pass": null,
+   "total": null,
+   "ms": 2962,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "tsforge",
-   "status": "FAIL",
-   "entry": "pytest test_core.py",
-   "ms": 2938,
-   "reason": "退出码 2",
-   "summary": "1 error in 0.77s",
-   "tail": "    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_core.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 0.77s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_core.py",
+   "pass": null,
+   "total": null,
+   "ms": 800,
+   "overrideReason": null,
+   "summary": "15 passed in 0.16s"
   },
   {
    "name": "upliftforge",
-   "status": "FAIL",
-   "entry": "pytest test_cli.py",
-   "ms": 2682,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "upliftforge\\core\\seed.py:13: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_cli.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_cli.py",
+   "pass": null,
+   "total": null,
+   "ms": 2260,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "vaeforge",
-   "status": "FAIL",
-   "entry": "pytest test_api.py",
-   "ms": 2989,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "tests\\test_api.py:2: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_api.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_api.py",
+   "pass": null,
+   "total": null,
+   "ms": 8479,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "valuaforge",
-   "status": "FAIL",
-   "entry": "pytest test_axioms.py",
-   "ms": 2259,
-   "reason": "退出码 4",
-   "summary": "E   ModuleNotFoundError: No module named 'numpy'",
-   "tail": "ImportError while loading conftest 'C:\\Users\\Administrator\\WorkBuddy\\2026-10-24-01-51-03\\.cache\\fleet\\valuaforge\\tests\\conftest.py'.\r\ntests\\conftest.py:14: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_axioms.py",
+   "pass": null,
+   "total": null,
+   "ms": 1862,
+   "overrideReason": null,
+   "summary": "35 passed in 0.97s"
   },
   {
    "name": "vecforge",
-   "status": "FAIL",
-   "entry": "pytest test_core.py",
-   "ms": 2045,
-   "reason": "退出码 4",
-   "summary": "E   ModuleNotFoundError: No module named 'numpy'",
-   "tail": "ImportError while loading conftest 'C:\\Users\\Administrator\\WorkBuddy\\2026-10-24-01-51-03\\.cache\\fleet\\vecforge\\tests\\conftest.py'.\r\ntests\\conftest.py:2: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_core.py",
+   "pass": null,
+   "total": null,
+   "ms": 3223,
+   "overrideReason": null,
+   "summary": "6 passed in 0.02s"
   },
   {
    "name": "veritas-ai",
-   "status": "FAIL",
-   "entry": "pytest test_api.py",
-   "ms": 2579,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "tests\\test_api.py:3: in <module>\r\n    from fastapi.testclient import TestClient\r\nE   ModuleNotFoundError: No module named 'fastapi'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_api.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_api.py",
+   "pass": null,
+   "total": null,
+   "ms": 1804,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "visionforge",
-   "status": "FAIL",
-   "entry": "pytest test_descriptors.py",
-   "ms": 2544,
-   "reason": "退出码 2",
-   "summary": "1 error in 0.63s",
-   "tail": "    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_descriptors.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 0.63s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_descriptors.py",
+   "pass": null,
+   "total": null,
+   "ms": 1085,
+   "overrideReason": null,
+   "summary": "3 passed in 0.31s"
   },
   {
    "name": "voiceforge",
-   "status": "FAIL",
-   "entry": "pytest test_config_backend.py",
-   "ms": 2845,
-   "reason": "退出码 4",
-   "summary": "E   ModuleNotFoundError: No module named 'numpy'",
-   "tail": "ImportError while loading conftest 'C:\\Users\\Administrator\\WorkBuddy\\2026-10-24-01-51-03\\.cache\\fleet\\voiceforge\\tests\\conftest.py'.\r\ntests\\conftest.py:14: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_config_backend.py",
+   "pass": null,
+   "total": null,
+   "ms": 3220,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "watermarkforge",
-   "status": "FAIL",
-   "entry": "pytest test_invariant.py",
-   "ms": 2590,
-   "reason": "退出码 2",
-   "summary": "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
-   "tail": "tests\\test_invariant.py:8: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_invariant.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_invariant.py",
+   "pass": null,
+   "total": null,
+   "ms": 49350,
+   "overrideReason": null,
+   "summary": ""
   },
   {
    "name": "wave-forge",
@@ -1724,7 +1942,8 @@
    "entry": "node _smoke.js",
    "pass": null,
    "total": null,
-   "ms": 7188,
+   "ms": 3384,
+   "overrideReason": null,
    "summary": ""
   },
   {
@@ -1733,7 +1952,8 @@
    "entry": "node verify.js",
    "pass": 8,
    "total": 8,
-   "ms": 3583,
+   "ms": 1640,
+   "overrideReason": null,
    "summary": "通过: 8 / 8"
   },
   {
@@ -1742,25 +1962,28 @@
    "entry": "npm test → node test/test-all.js",
    "pass": 16,
    "total": 16,
-   "ms": 2794,
+   "ms": 587,
+   "overrideReason": null,
    "summary": "=== 世界级 AI 引擎自检：16/16 全绿 ==="
   },
   {
    "name": "worldai",
-   "status": "FAIL",
-   "entry": "pytest test_agent_eval.py",
-   "ms": 5350,
-   "reason": "退出码 2",
-   "summary": "1 error in 1.31s",
-   "tail": "    from rank_bm25 import BM25Okapi\r\nE   ModuleNotFoundError: No module named 'rank_bm25'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_agent_eval.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 1.31s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_agent_eval.py",
+   "pass": null,
+   "total": null,
+   "ms": 1159,
+   "overrideReason": null,
+   "summary": "10 passed in 0.27s"
   },
   {
    "name": "worldforge-ai",
    "status": "PASS",
-   "entry": "pytest test_adapters_default_impl.py",
+   "entry": "pytest tests\\test_adapters_default_impl.py",
    "pass": null,
    "total": null,
-   "ms": 4464,
+   "ms": 1115,
+   "overrideReason": null,
    "summary": ""
   },
   {
@@ -1769,26 +1992,30 @@
    "entry": "npm test → node test/run.js",
    "pass": 17,
    "total": 17,
-   "ms": 2331,
+   "ms": 608,
+   "overrideReason": null,
    "summary": "结果：17/17 通过  ✅ 全绿"
   },
   {
    "name": "zhi-rag",
-   "status": "FAIL",
-   "entry": "pytest test_api.py",
-   "ms": 3409,
-   "reason": "退出码 2",
-   "summary": "1 error in 0.85s",
-   "tail": "    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\nE   ModuleNotFoundError: No module named 'fastapi'\r\n=========================== short test summary info ===========================\r\nERROR tests/test_api.py\r\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\r\n1 error in 0.85s\r"
+   "status": "PASS",
+   "entry": "pytest tests\\test_api.py",
+   "pass": null,
+   "total": null,
+   "ms": 4334,
+   "overrideReason": null,
+   "summary": "1 passed, 1 warning in 3.18s"
   },
   {
    "name": "zhishu",
-   "status": "FAIL",
-   "entry": "pytest test_agent.py",
-   "ms": 6376,
-   "reason": "退出码 4",
-   "summary": "E   ModuleNotFoundError: No module named 'numpy'",
-   "tail": "ImportError while loading conftest 'C:\\Users\\Administrator\\WorkBuddy\\2026-10-24-01-51-03\\.cache\\fleet\\zhishu\\tests\\conftest.py'.\r\ntests\\conftest.py:4: in <module>\r\n    import numpy as np\r\nE   ModuleNotFoundError: No module named 'numpy'\r"
+   "status": "ENV-BLOCKED",
+   "entry": "pytest tests\\test_agent.py",
+   "ms": 868,
+   "overrideReason": null,
+   "envKind": "python-module",
+   "envDetail": "fastembed",
+   "reason": "环境缺依赖（python-module: fastembed）——非代码缺陷",
+   "summary": "E   ModuleNotFoundError: No module named 'fastembed'"
   }
  ]
 }

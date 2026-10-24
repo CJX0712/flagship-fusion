@@ -114,6 +114,17 @@ function readScripts(dir) {
   try { return JSON.parse(fs.readFileSync(pj, 'utf8')).scripts || null; } catch (_) { return null; }
 }
 
+/** 文件是否含 pytest 能收集到的用例（test_* 函数或 pytest 导入） */
+const PYTEST_MARK = /(^|\n)\s*def\s+test_/m;
+function hasPytestCases(file) {
+  try {
+    const src = fs.readFileSync(file, 'utf8');
+    return PYTEST_MARK.test(src) || /^\s*import\s+pytest/m.test(src);
+  } catch (_) {
+    return true; // 读不动就交回 pytest 自己去说话，不替它下结论
+  }
+}
+
 function detectEntrypoint(dir) {
   // 1) package.json 的 scripts.test 最权威
   const scripts = readScripts(dir);
@@ -128,8 +139,17 @@ function detectEntrypoint(dir) {
       if (!fs.existsSync(base)) continue;
       const pre = path.basename(c.file).split('*')[0], suf = path.basename(c.file).split('*')[1];
       const hits = fs.readdirSync(base).filter(f => f.startsWith(pre) && f.endsWith(suf));
-      if (hits.length) return { kind: 'pytest', cmd: PYTHON_BIN, args: ['-m', 'pytest', '-q', path.join(path.dirname(c.file), hits[0])], label: `pytest ${hits[0]}` };
-      continue;
+      if (!hits.length) continue;
+      const rel = path.join(path.dirname(c.file), hits[0]);
+      // 实测教训：入口判定不能只看文件名。phosphor-py 的 tests/test_all.py 是
+      // 脚本式自检（0 个 test_* 函数，docstring 写明运行方式是 `python tests/test_all.py`），
+      // 盲目喂给 pytest 会得到「no tests ran」并被误记成 FAIL（退出码 5）。
+      // 先看内容：确有 pytest 可收集的用例才走 pytest，否则按脚本式自检直接跑
+      // （实测 phosphor-py：python tests/test_all.py → 27 通过 / 0 失败）。
+      if (hasPytestCases(path.join(dir, rel))) {
+        return { kind: 'pytest', cmd: PYTHON_BIN, args: ['-m', 'pytest', '-q', rel], label: `pytest ${rel}` };
+      }
+      return { kind: 'python', cmd: PYTHON_BIN, args: [rel], label: `python ${rel}` };
     }
     const p = path.join(dir, c.file);
     if (!fs.existsSync(p)) continue;
@@ -197,10 +217,19 @@ const TIMEOUT_MS = Number(process.env.FUSION_TIMEOUT_MS || 150000);
 function spawnOne(ep, dir) {
   // Windows 下 npm 是 .cmd 批处理，必须经 shell 执行；Node 脚本直接用绝对路径
   const useShell = ep.kind === 'npm';
+  // Python 仓的测试常 import 仓自身包（pytest、pytest-file、脚本式自检皆然）。
+  // 快照里的包没有 pip install -e，凭 import 找不到 → 会退化成 ModuleNotFoundError
+  // 并被误记为「缺依赖」。把仓根（及主流约定的 src/）挂上 PYTHONPATH，
+  // 让「仓自己的包」可直接导入，剩下的才真的是第三方缺依赖。
+  // （实测：aurora-rag / aether-ai-core-v2 的 src 布局属此类）
+  let pyPath = (ep.kind === 'pytest' || ep.kind === 'python') ? dir : null;
+  if (pyPath && fs.existsSync(path.join(dir, 'src'))) {
+    pyPath = pyPath + path.delimiter + path.join(dir, 'src');
+  }
   const t0 = Date.now();
   const r = spawnSync(ep.cmd, ep.args, {
     cwd: dir, timeout: TIMEOUT_MS, encoding: 'utf8', maxBuffer: 16 * 1024 * 1024,
-    shell: useShell, env: childEnv()
+    shell: useShell, env: pyPath ? childEnv({ PYTHONPATH: pyPath }) : childEnv()
   });
   return { r, ms: Date.now() - t0 };
 }
@@ -213,6 +242,11 @@ function spawnOne(ep, dir) {
  * 现在按输出特征分类：缺模块 → ENV-BLOCKED（可自治修复后重验），
  * 真断言失败 → FAIL（必须改代码）。
  * -------------------------------------------------------------------------*/
+/** POSIX-only 标准库：Windows 上不存在这类模块，也无法用 pip 补齐 */
+const POSIX_ONLY_MODULES = [
+  'resource', 'fcntl', 'termios', 'pty', 'tty', 'pwd', 'grp', 'spwd', 'crypt', 'syslog', 'nis'
+];
+
 const ENV_PATTERNS = [
   { re: /No module named '([^']+)'/i, kind: 'python-module' },
   { re: /Cannot find module '([^']+)'/i, kind: 'node-module' },
@@ -222,8 +256,33 @@ const ENV_PATTERNS = [
   { re: /ENOENT|no such file or directory/i, kind: 'missing-file' }
 ];
 
+/** 缺失模块是不是「仓自己该有却没有的包」：模块根名 == 仓名，且目录下并无该包 */
+function isSelfPackageMissing(moduleName, repoName, dir) {
+  if (!moduleName) return false;
+  const norm = (s) => String(s).toLowerCase().replace(/[-_.]/g, '');
+  const root = String(moduleName).split('.')[0];
+  if (!root || !norm(repoName).includes(norm(root))) return false;
+  const asPackage = path.join(dir, root);
+  const asModule = path.join(dir, root + '.py');
+  if (fs.existsSync(asPackage) || fs.existsSync(asModule)) return false;
+  if (fs.existsSync(path.join(dir, 'src', root))) return false;
+  return true;
+}
+
 function classifyFailure(out) {
   const text = out || '';
+  // POSIX-only 标准库在 Windows 上不存在，也 pip 装不了。
+  // 若一律记成「缺依赖」，等于暗示使用者去 pip install 一个永远装不上的模块——
+  // 这是归因失真。单独分一类：平台不支持，非代码缺陷，非依赖问题。
+  if (process.platform === 'win32') {
+    const pm = text.match(/ModuleNotFoundError:\s*No module named '([A-Za-z_][\w.]*)'/);
+    if (pm && POSIX_ONLY_MODULES.includes(pm[1])) {
+      return {
+        envBlocked: true, envKind: 'platform-unsupported',
+        detail: `${pm[1]}（POSIX-only 标准库，Windows 无此模块且无法 pip 安装）`
+      };
+    }
+  }
   for (const p of ENV_PATTERNS) {
     const m = text.match(p.re);
     if (m) return { envBlocked: true, envKind: p.kind, detail: (m[1] || '').slice(0, 60) };
@@ -248,7 +307,37 @@ function runOne(name, dir) {
 }
 
 /** 单仓执行主体（入口由调用方给定，便于覆盖表注入） */
+/**
+ * 前置探测：npm 脚本依赖的测试运行器到底装没装？
+ *
+ * 实测教训（aetheros）：`npm test → vitest run`，但 node_modules 里没有 vitest，
+ * npm 直接退 1。若按「退出码非零 = 测试失败」记账，就是把
+ * 「依赖未安装」冒充成「代码缺陷」——这正是 ENV-BLOCKED / FAIL 分账要防的事。
+ * 主动检查而非事后猜错文编码（Windows 中文/英文 locale 报错文案不同），
+ * 因地制宜判断一律用文件系统事实说话。
+ */
+function missingTestRunner(ep, dir) {
+  if (!ep || ep.kind !== 'npm') return null;
+  const tok = (String(ep.label).match(/npm test\s*→\s*(\S+)/) || [])[1];
+  if (!tok || tok === 'node' || tok === 'npm' || tok === 'npx') return null;
+  const bin = path.join(dir, 'node_modules', '.bin');
+  const win = process.platform === 'win32';
+  const present = fs.existsSync(path.join(bin, tok))
+    || fs.existsSync(path.join(bin, tok + (win ? '.cmd' : '')))
+    || fs.existsSync(path.join(bin, tok + (win ? '.ps1' : '')));
+  return present ? null : tok;
+}
+
 function runOneWith(ep, name, dir, overrideReason) {
+  // 测试运行器都还没装 → 直接如实记环境受阻，不去跑注定失败的命令
+  const missingBin = missingTestRunner(ep, dir);
+  if (missingBin) {
+    return {
+      name, status: 'ENV-BLOCKED', entry: ep.label, ms: 0, overrideReason,
+      envKind: 'missing-test-runner', envDetail: missingBin,
+      reason: `测试运行器 ${missingBin} 未安装（node_modules 缺失或未装成功）——非代码缺陷`
+    };
+  }
   const { r, ms } = spawnOne(ep, dir);
   const s = summarize(r);
 
@@ -283,12 +372,38 @@ function runOneWith(ep, name, dir, overrideReason) {
   }
   // ---- 失败归因：环境缺依赖 vs 代码真缺陷 ----
   const out = (r.stdout || '') + (r.stderr || '');
+
+  // pytest 一条用例都没收集到（退出码 5 / "no tests ran"）= 入口约定与工具不匹配，
+  // 是验证器的选择问题，不是被测仓的断言失败——必须如实分成环境类，不冒充缺陷。
+  if (Number(r.status) === 5 || /\bno tests ran\b/i.test(out)) {
+    return {
+      name, status: 'ENV-BLOCKED', entry: ep.label, ms, overrideReason,
+      envKind: 'pytest-no-collect', envDetail: '入口约定不匹配（pytest 未收集到用例）',
+      reason: 'pytest 未收集到任何用例（入口约定不匹配，属工具选择问题）——非代码缺陷',
+      summary: (s.summaryLine || s.lines.slice(-1)[0] || '').trim().slice(0, 120)
+    };
+  }
+
   const c = classifyFailure(out);
   if (c.envBlocked) {
+    // 例外一类：缺失模块是「仓自己的包」（模块名 == 仓名，且仓内不存在该目录）
+    // 这不是 pip 能补的环境依赖，而是仓自身结构不一致——必须记 FAIL 而非 ENV-BLOCKED。
+    // 实证：portforge 的测试 `from portforge.core.config import …`，
+    // 但 GitHub 远端与本地快照均不存在 portforge/ 包目录（已用 GitHub API 核对）。
+    if (c.envKind === 'python-module' && isSelfPackageMissing(c.detail, name, dir)) {
+      return {
+        name, status: 'FAIL', entry: ep.label, ms, overrideReason,
+        reason: `仓缺少自有包目录 ${c.detail}（tests 导入的本仓模块在仓内不存在，已核对远端同源）——非环境依赖问题`,
+        summary: (s.summaryLine || s.lines.slice(-1)[0] || '').trim().slice(0, 120),
+        tail: s.lines.slice(-6).join('\n').slice(0, 600)
+      };
+    }
     return {
       name, status: 'ENV-BLOCKED', entry: ep.label, ms, overrideReason,
       envKind: c.envKind, envDetail: c.detail,
-      reason: `环境缺依赖（${c.envKind}${c.detail ? ': ' + c.detail : ''}）——非代码缺陷`,
+      reason: c.envKind === 'platform-unsupported'
+        ? `平台不支持（${c.detail}）——非代码缺陷，需在 Linux/macOS 下重验`
+        : `环境缺依赖（${c.envKind}${c.detail ? ': ' + c.detail : ''}）——非代码缺陷`,
       summary: (s.summaryLine || s.lines.slice(-1)[0] || '').trim().slice(0, 120)
     };
   }

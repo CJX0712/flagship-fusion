@@ -1,6 +1,6 @@
 {
   "schema": "flagship-fusion/isa-crosswalk@1",
-  "generatedAt": "2026-10-23T20:53:21.726Z",
+  "generatedAt": "2026-10-24T17:02:33.765Z",
   "generator": "src/isa-crosswalk.js",
   "sources": {
     "axiom": {
